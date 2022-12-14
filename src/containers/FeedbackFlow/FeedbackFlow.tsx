@@ -1,3 +1,4 @@
+import { Container } from "@mui/system";
 import React, { ReactElement, SyntheticEvent, useMemo, useState } from "react";
 import { FeedbackList, FeedbackSteps, FEEDBACK_STEPS } from "../types/Feedback";
 import { FeedbackForm } from "./components";
@@ -77,5 +78,5 @@ export const FeedbackFlow = () => {
     ),
   };
 
-  return formSteps[feedbackStep];
+  return <Container>{formSteps[feedbackStep]}</Container>;
 };

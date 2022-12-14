@@ -1,5 +1,5 @@
 import React, { type FC } from "react";
-import { Button, Typography } from "@mui/material";
+import { Button, Card, Grid, Rating, Typography } from "@mui/material";
 import { CHART_OPTIONS, FEEDBACK_RESULTS_CONTENT } from "./constants";
 import { CHART_LABELS } from "../../data";
 import type { FeedbackList } from "../../../types/Feedback";
@@ -46,24 +46,37 @@ export const FeedbackResults: FC<FeedbackResultsProps> = ({
 
       <Button onClick={handleBack}>Go Back</Button>
 
-      <section aria-labelledby="comments-heading">
+      <Bar data={chartData} options={CHART_OPTIONS} />
+
+      <Grid
+        component="section"
+        container
+        flexDirection="column"
+        gap="1rem"
+        aria-labelledby="comments-heading"
+      >
         <Typography variant="h5" component="h2" id="comments-heading">
           {commentsHeading}
         </Typography>
 
-        <Bar data={chartData} options={CHART_OPTIONS} />
-
-        <ul>
+        <Grid container gap="1rem" flexDirection="column">
           {feedbackList.map(({ name, email, rating, comment }, index) => (
-            <li key={index}>
-              <div>Name: {name}</div>
-              <div>Email: {email}</div>
-              <div>Rating: {rating}</div>
-              <div>Comment: {comment}</div>
-            </li>
+            <Card
+              key={index}
+              variant="outlined"
+              sx={{ padding: "1rem", flexGrow: 1 }}
+            >
+              <Grid container direction="column" gap="1rem">
+                <Grid container gap="0.5rem">
+                  <div>{email}</div>
+                  <Rating value={rating} />
+                </Grid>
+                <div>{comment}</div>
+              </Grid>
+            </Card>
           ))}
-        </ul>
-      </section>
+        </Grid>
+      </Grid>
     </>
   );
 };
