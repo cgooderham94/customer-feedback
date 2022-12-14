@@ -15,6 +15,13 @@ export const FeedbackFlow = () => {
 
   const canSubmit = name && email && rating && comment;
 
+  const resetFields = () => {
+    setName("");
+    setEmail("");
+    setRating(null);
+    setComment("");
+  };
+
   const handleSubmit = (e: SyntheticEvent) => {
     e.preventDefault();
 
@@ -22,7 +29,10 @@ export const FeedbackFlow = () => {
 
     setFeedbackList([...feedbackList, { name, email, rating, comment }]);
     setFeedbackStep(FEEDBACK_STEPS.RESULTS);
+    resetFields();
   };
+
+  const handleBack = () => setFeedbackStep(FEEDBACK_STEPS.FORM);
 
   const formSteps: Record<FeedbackSteps, ReactElement> = {
     FORM: (
@@ -40,23 +50,8 @@ export const FeedbackFlow = () => {
         }}
       />
     ),
-    RESULTS: <FeedbackResults />,
+    RESULTS: <FeedbackResults {...{ feedbackList, handleBack }} />,
   };
 
-  return (
-    <div>
-      {formSteps[feedbackStep]}
-
-      <ul>
-        {feedbackList.map(({ name, email, rating, comment }, index) => (
-          <li key={index}>
-            <div>Name: {name}</div>
-            <div>Email: {email}</div>
-            <div>Rating: {rating}</div>
-            <div>Comment: {comment}</div>
-          </li>
-        ))}
-      </ul>
-    </div>
-  );
+  return formSteps[feedbackStep];
 };
