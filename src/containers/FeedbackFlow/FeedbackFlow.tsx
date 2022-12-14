@@ -4,20 +4,7 @@ import { FeedbackForm } from "./components";
 import { FeedbackResults } from "./components/FeedbackResults/FeedbackResults";
 
 export const FeedbackFlow = () => {
-  const [feedbackList, setFeedbackList] = useState<FeedbackList>([
-    {
-      name: "Joe Bloggs",
-      email: "joe@bloggs.com",
-      rating: 5,
-      comment: "Fantastic product! Thanks.",
-    },
-    {
-      name: "Jack Sparrow",
-      email: "jack@sparrow.com",
-      rating: 4,
-      comment: "Nicely refined product. Great customer service.",
-    },
-  ]);
+  const [feedbackList, setFeedbackList] = useState<FeedbackList>([]);
   const [name, setName] = useState("");
   const [email, setEmail] = useState("");
   const [rating, setRating] = useState<number | null>(null);
