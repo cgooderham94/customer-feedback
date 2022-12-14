@@ -1,5 +1,5 @@
 import { Typography } from "@mui/material";
-import React, { useState } from "react";
+import React, { SyntheticEvent, useState } from "react";
 import { FeedbackForm } from "./components";
 import { FEEDBACK_FLOW_CONTENT } from "./constants";
 
@@ -34,6 +34,16 @@ export const FeedbackFlow = () => {
   const [rating, setRating] = useState<number | null>(null);
   const [comment, setComment] = useState("");
 
+  const canSubmit = name && email && rating && comment;
+
+  const handleSubmit = (e: SyntheticEvent) => {
+    e.preventDefault();
+
+    if (!canSubmit) return alert("Please check all fields before submitting.");
+
+    setFeedbackList([...feedbackList, { name, email, rating, comment }]);
+  };
+
   return (
     <div>
       <Typography variant="h4" component="h1">
@@ -50,12 +60,13 @@ export const FeedbackFlow = () => {
           setRating,
           comment,
           setComment,
+          handleSubmit,
         }}
       />
 
       <ul>
-        {feedbackList.map(({ name, email, rating, comment }) => (
-          <li>
+        {feedbackList.map(({ name, email, rating, comment }, index) => (
+          <li key={index}>
             <div>Name: {name}</div>
             <div>Email: {email}</div>
             <div>Rating: {rating}</div>

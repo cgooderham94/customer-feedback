@@ -1,5 +1,12 @@
 import { Button, TextField } from "@mui/material";
-import { ChangeEvent, Dispatch, FC, SetStateAction } from "react";
+import {
+  ChangeEvent,
+  Dispatch,
+  FC,
+  FormEventHandler,
+  SetStateAction,
+  SyntheticEvent,
+} from "react";
 import { FEEDBACK_FORM_CONTENT } from "./constants";
 
 interface FeedbackFormProps {
@@ -11,6 +18,7 @@ interface FeedbackFormProps {
   setRating: Dispatch<SetStateAction<null | number>>;
   comment: string;
   setComment: Dispatch<SetStateAction<string>>;
+  handleSubmit: (e: SyntheticEvent) => void;
 }
 
 const {
@@ -29,12 +37,14 @@ export const FeedbackForm: FC<FeedbackFormProps> = ({
   setRating,
   comment,
   setComment,
+  handleSubmit,
 }) => {
   const handleFieldValue = (
     e: ChangeEvent,
     setValue: Dispatch<SetStateAction<any>>
   ) => {
     const {
+      // @ts-ignore
       target: { value },
     } = e;
 
@@ -46,10 +56,8 @@ export const FeedbackForm: FC<FeedbackFormProps> = ({
   const handleRating = (e: ChangeEvent) => handleFieldValue(e, setRating);
   const handleComment = (e: ChangeEvent) => handleFieldValue(e, setComment);
 
-  console.log("Field values", name, email, rating, comment);
-
   return (
-    <form>
+    <form onSubmit={handleSubmit}>
       <TextField
         id={nameField.id}
         label={nameField.label}
