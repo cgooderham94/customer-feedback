@@ -59,6 +59,8 @@ adapts gracefully to different screen sizes and devices.
 - [x] Comments state
   - [x] Push form submission to comments state
 - [ ] Validate form fields
-- [ ] Multi-step flow -> submissions page
-- [ ] Add distribution chart via third-party dep
+- [x] Multi-step flow -> submissions page
+- [x] Add distribution chart via third-party dep
+- [ ] Refine distribution chart options
+- [ ] UI Layout
 - [ ] Styling/UI refinements

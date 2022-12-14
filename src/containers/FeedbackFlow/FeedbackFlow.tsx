@@ -1,8 +1,8 @@
-import React, { ReactElement, SyntheticEvent, useState } from "react";
+import React, { ReactElement, SyntheticEvent, useMemo, useState } from "react";
 import { FeedbackList, FeedbackSteps, FEEDBACK_STEPS } from "../types/Feedback";
 import { FeedbackForm } from "./components";
 import { FeedbackResults } from "./components/FeedbackResults/FeedbackResults";
-import { INITIAL_FEEDBACK_LIST } from "./data";
+import { INITIAL_FEEDBACK_LIST, INITIAL_RATINGS_DISTRIBUTION } from "./data";
 
 export const FeedbackFlow = () => {
   const [feedbackList, setFeedbackList] = useState<FeedbackList>(
@@ -17,6 +17,25 @@ export const FeedbackFlow = () => {
   );
 
   const canSubmit = name && email && rating && comment;
+
+  const ratingDistribution = useMemo(
+    () =>
+      feedbackList.reduce<Record<string, number>>(
+        (acc, { rating }) => {
+          console.log("Feedback list reduce");
+
+          const ratingStr = rating.toString();
+
+          acc[ratingStr] = acc[ratingStr] ? (acc[ratingStr] += 1) : 1;
+
+          return acc;
+        },
+        { ...INITIAL_RATINGS_DISTRIBUTION }
+      ),
+    [feedbackList]
+  );
+
+  console.log("ratings dist", ratingDistribution);
 
   const resetFields = () => {
     setName("");
@@ -53,7 +72,9 @@ export const FeedbackFlow = () => {
         }}
       />
     ),
-    RESULTS: <FeedbackResults {...{ feedbackList, handleBack }} />,
+    RESULTS: (
+      <FeedbackResults {...{ feedbackList, handleBack, ratingDistribution }} />
+    ),
   };
 
   return formSteps[feedbackStep];
