@@ -1,9 +1,10 @@
 import React from 'react';
+import { FeedbackFlow } from './containers/FeedbackFlow';
 
 function App() {
   return (
     <div>
-      Add feedback form here
+      <FeedbackFlow />
     </div>
   );
 }

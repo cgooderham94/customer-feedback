@@ -49,3 +49,16 @@ included to demonstrate your knowledge and ensure the application works as expec
 
 We’re looking for a functional user interface, enhanced by thoughtful user experience that
 adapts gracefully to different screen sizes and devices.
+
+---
+
+### TODO
+
+- [ ] Repo scaffolding
+- [ ] Feedback form container component
+- [ ] Comments state
+  - [ ] Push form submission to comments state
+- [ ] Validate form fields
+- [ ] Multi-step flow -> submissions page
+- [ ] Add distribution chart via third-party dep
+- [ ] Styling/UI refinements
