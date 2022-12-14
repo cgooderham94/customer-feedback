@@ -1,4 +1,7 @@
+import { Typography } from "@mui/material";
 import React, { useState } from "react";
+import { FeedbackForm } from "./components";
+import { FEEDBACK_FLOW_CONTENT } from "./constants";
 
 interface Feedback {
   name: string;
@@ -8,6 +11,8 @@ interface Feedback {
 }
 
 type FeedbackList = Feedback[];
+
+const { heading } = FEEDBACK_FLOW_CONTENT;
 
 export const FeedbackFlow = () => {
   const [feedbackList, setFeedbackList] = useState<FeedbackList>([
@@ -26,15 +31,23 @@ export const FeedbackFlow = () => {
   ]);
 
   return (
-    <ul>
-      {feedbackList.map(({ name, email, rating, comment }) => (
-        <li>
-          <div>Name: {name}</div>
-          <div>Email: {email}</div>
-          <div>Rating: {rating}</div>
-          <div>Comment: {comment}</div>
-        </li>
-      ))}
-    </ul>
+    <div>
+      <Typography variant="h4" component="h1">
+        {heading}
+      </Typography>
+
+      <FeedbackForm />
+
+      <ul>
+        {feedbackList.map(({ name, email, rating, comment }) => (
+          <li>
+            <div>Name: {name}</div>
+            <div>Email: {email}</div>
+            <div>Rating: {rating}</div>
+            <div>Comment: {comment}</div>
+          </li>
+        ))}
+      </ul>
+    </div>
   );
 };
