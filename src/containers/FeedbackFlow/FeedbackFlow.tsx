@@ -29,6 +29,10 @@ export const FeedbackFlow = () => {
       comment: "Nicely refined product. Great customer service.",
     },
   ]);
+  const [name, setName] = useState("");
+  const [email, setEmail] = useState("");
+  const [rating, setRating] = useState<number | null>(null);
+  const [comment, setComment] = useState("");
 
   return (
     <div>
@@ -36,7 +40,18 @@ export const FeedbackFlow = () => {
         {heading}
       </Typography>
 
-      <FeedbackForm />
+      <FeedbackForm
+        {...{
+          name,
+          setName,
+          email,
+          setEmail,
+          rating,
+          setRating,
+          comment,
+          setComment,
+        }}
+      />
 
       <ul>
         {feedbackList.map(({ name, email, rating, comment }) => (
