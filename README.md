@@ -1,46 +1,51 @@
-# Getting Started with Create React App
+# Checkout.com Front End Challenge
 
-This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).
+**Collecting Customer Feedback**
 
-## Available Scripts
+We want to build a web application to collect and display customer feedback.
 
-In the project directory, you can run:
+**We have put together some initial wireframes below:**
 
-### `yarn start`
+<img width="430" alt="Screenshot 2022-12-14 at 11 32 26" src="https://user-images.githubusercontent.com/33296316/207584427-2b266f44-e14c-4409-925e-0d71885fa0d9.png">
 
-Runs the app in the development mode.\
-Open [http://localhost:3000](http://localhost:3000) to view it in the browser.
+## Detailed Requirements
 
-The page will reload if you make edits.\
-You will also see any lint errors in the console.
+The application should allow a customer to:
 
-### `yarn test`
+1. Write a review for a product (name, email, rating 1 to 5 stars and leave a comment).
+   1. All fields are required and must be validated prior to form submission. Use your judgment on sensible validation.
+2. Following submission of feedback, the user should be transitioned to a second page where they can see a chart showing the distribution of ratings and most recent comments (you can use any library available for charting).
+3. The user can go back to submit more feedback. Going back should present the user with
+an empty form.
 
-Launches the test runner in the interactive watch mode.\
-See the section about [running tests](https://facebook.github.io/create-react-app/docs/running-tests) for more information.
+## Guidelines
 
-### `yarn build`
+Kindly create a public repository on GitHub and provide your recruitment manager with a link.
 
-Builds the app for production to the `build` folder.\
-It correctly bundles React in production mode and optimizes the build for the best performance.
+### Technologies
 
-The build is minified and the filenames include the hashes.\
-Your app is ready to be deployed!
+The only constraint is that your solution must use React. Otherwise you are free to make use of
+any technology (toolchains, component libraries, etc.) you are comfortable with.
+What we value at Checkout.com
 
-See the section about [deployment](https://facebook.github.io/create-react-app/docs/deployment) for more information.
+### Documentation
 
-### `yarn eject`
+The right amount of documentation is the one that explains what a project does, how to operate
+and why certain choices were made. Also, what’s left to improve and why.
 
-**Note: this is a one-way operation. Once you `eject`, you can’t go back!**
+### Code Architecture
 
-If you aren’t satisfied with the build tool and configuration choices, you can `eject` at any time. This command will remove the single build dependency from your project.
+Code should be easy to read and change. Consider folder structure, component breakdown,
+general separation of concerns, ease of testing and keeping things simple for the reader.
 
-Instead, it will copy all the configuration files and the transitive dependencies (webpack, Babel, ESLint, etc) right into your project so you have full control over them. All of the commands except `eject` will still work, but they will point to the copied scripts so you can tweak them. At this point you’re on your own.
+### Tests
 
-You don’t have to ever use `eject`. The curated feature set is suitable for small and middle deployments, and you shouldn’t feel obligated to use this feature. However we understand that this tool wouldn’t be useful if you couldn’t customize it when you are ready for it.
+Software Engineers at Checkout.com are responsible for building, testing, deploying and
+operating our software. For this exercise, we’re not looking for full test coverage, but we are
+looking for a good demonstration of how you test. You should ensure there are enough tests
+included to demonstrate your knowledge and ensure the application works as expected.
 
-## Learn More
+### User Experience
 
-You can learn more in the [Create React App documentation](https://facebook.github.io/create-react-app/docs/getting-started).
-
-To learn React, check out the [React documentation](https://reactjs.org/).
+We’re looking for a functional user interface, enhanced by thoughtful user experience that
+adapts gracefully to different screen sizes and devices.
