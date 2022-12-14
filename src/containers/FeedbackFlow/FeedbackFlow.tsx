@@ -2,9 +2,12 @@ import React, { ReactElement, SyntheticEvent, useState } from "react";
 import { FeedbackList, FeedbackSteps, FEEDBACK_STEPS } from "../types/Feedback";
 import { FeedbackForm } from "./components";
 import { FeedbackResults } from "./components/FeedbackResults/FeedbackResults";
+import { INITIAL_FEEDBACK_LIST } from "./data";
 
 export const FeedbackFlow = () => {
-  const [feedbackList, setFeedbackList] = useState<FeedbackList>([]);
+  const [feedbackList, setFeedbackList] = useState<FeedbackList>(
+    INITIAL_FEEDBACK_LIST
+  );
   const [name, setName] = useState("");
   const [email, setEmail] = useState("");
   const [rating, setRating] = useState<number | null>(null);

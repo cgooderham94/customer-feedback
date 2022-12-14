@@ -2,6 +2,26 @@ import { render, screen, within } from "@testing-library/react";
 import userEvent from "@testing-library/user-event";
 import { FeedbackFlow } from "../FeedbackFlow";
 import { expectSubmitFeedback } from "./helpers";
+import "../data";
+
+jest.mock("../data.ts", () => ({
+  ...jest.requireActual("../data.ts"),
+  INITIAL_FEEDBACK_LIST: [
+    {
+      name: "Kimberley Atkinson",
+      email: "kim@atkinson.com",
+      rating: 5,
+      comment: "Excellent product, excellent service!",
+    },
+    {
+      name: "David King",
+      email: "david@king.com",
+      rating: 3,
+      comment:
+        "Took some time to get things up and running but product worked well thereafter.",
+    },
+  ],
+}));
 
 const NAME = "Test Person";
 const EMAIL = "test@person.com";
@@ -11,6 +31,10 @@ const COMMENT = "Fantastic product.";
 const renderComponent = () => render(<FeedbackFlow />);
 
 describe("FeedbackFlow", () => {
+  beforeEach(() => {
+    jest.clearAllMocks();
+  });
+
   it("displays feedback form step as default", () => {
     renderComponent();
 
@@ -68,6 +92,24 @@ describe("FeedbackFlow", () => {
         rating: RATING,
         comment: COMMENT,
       });
+
+      expect(screen.getByText(/kimberley atkinson/i)).toBeInTheDocument();
+      expect(screen.getByText(/kim@atkinson.com/i)).toBeInTheDocument();
+      expect(
+        screen.getByText(/excellent product, excellent service!/i)
+      ).toBeInTheDocument();
+
+      expect(screen.getByText(/david king/i)).toBeInTheDocument();
+      expect(screen.getByText(/david@king.com/i)).toBeInTheDocument();
+      expect(
+        screen.getByText(
+          /took some time to get things up and running but product worked well thereafter./i
+        )
+      ).toBeInTheDocument();
+
+      expect(screen.getByText(new RegExp(NAME, "i"))).toBeInTheDocument();
+      expect(screen.getByText(new RegExp(EMAIL, "i"))).toBeInTheDocument();
+      expect(screen.getByText(new RegExp(COMMENT, "i"))).toBeInTheDocument();
     });
 
     it("displays distribution chart of past ratings", () => {});
