@@ -1,4 +1,4 @@
-import { Button, TextField } from "@mui/material";
+import { Button, TextField, Typography } from "@mui/material";
 import {
   ChangeEvent,
   Dispatch,
@@ -22,6 +22,7 @@ interface FeedbackFormProps {
 }
 
 const {
+  heading,
   name: nameField,
   email: emailField,
   rating: ratingField,
@@ -57,33 +58,39 @@ export const FeedbackForm: FC<FeedbackFormProps> = ({
   const handleComment = (e: ChangeEvent) => handleFieldValue(e, setComment);
 
   return (
-    <form onSubmit={handleSubmit}>
-      <TextField
-        id={nameField.id}
-        label={nameField.label}
-        onChange={handleName}
-      />
-      <TextField
-        id={emailField.id}
-        label={emailField.label}
-        type="email"
-        onChange={handleEmail}
-      />
-      <TextField
-        id={ratingField.id}
-        label={ratingField.label}
-        type="number"
-        onChange={handleRating}
-      />
-      <TextField
-        id={commentField.id}
-        label={commentField.label}
-        multiline
-        onChange={handleComment}
-      />
-      <Button type="submit" variant="contained">
-        Submit
-      </Button>
-    </form>
+    <div>
+      <Typography variant="h4" component="h1">
+        {heading}
+      </Typography>
+
+      <form onSubmit={handleSubmit}>
+        <TextField
+          id={nameField.id}
+          label={nameField.label}
+          onChange={handleName}
+        />
+        <TextField
+          id={emailField.id}
+          label={emailField.label}
+          type="email"
+          onChange={handleEmail}
+        />
+        <TextField
+          id={ratingField.id}
+          label={ratingField.label}
+          type="number"
+          onChange={handleRating}
+        />
+        <TextField
+          id={commentField.id}
+          label={commentField.label}
+          multiline
+          onChange={handleComment}
+        />
+        <Button type="submit" variant="contained">
+          Submit
+        </Button>
+      </form>
+    </div>
   );
 };

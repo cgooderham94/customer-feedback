@@ -16,7 +16,7 @@ The application should allow a customer to:
    1. All fields are required and must be validated prior to form submission. Use your judgment on sensible validation.
 2. Following submission of feedback, the user should be transitioned to a second page where they can see a chart showing the distribution of ratings and most recent comments (you can use any library available for charting).
 3. The user can go back to submit more feedback. Going back should present the user with
-an empty form.
+   an empty form.
 
 ## Guidelines
 
@@ -54,10 +54,10 @@ adapts gracefully to different screen sizes and devices.
 
 ### TODO
 
-- [ ] Repo scaffolding
-- [ ] Feedback form container component
-- [ ] Comments state
-  - [ ] Push form submission to comments state
+- [x] Repo scaffolding
+- [x] Feedback form container component
+- [x] Comments state
+  - [x] Push form submission to comments state
 - [ ] Validate form fields
 - [ ] Multi-step flow -> submissions page
 - [ ] Add distribution chart via third-party dep

@@ -1,18 +1,7 @@
-import { Typography } from "@mui/material";
-import React, { SyntheticEvent, useState } from "react";
+import React, { ReactElement, SyntheticEvent, useState } from "react";
+import { FeedbackList, FeedbackSteps, FEEDBACK_STEPS } from "../types/Feedback";
 import { FeedbackForm } from "./components";
-import { FEEDBACK_FLOW_CONTENT } from "./constants";
-
-interface Feedback {
-  name: string;
-  email: string;
-  rating: number;
-  comment: string;
-}
-
-type FeedbackList = Feedback[];
-
-const { heading } = FEEDBACK_FLOW_CONTENT;
+import { FeedbackResults } from "./components/FeedbackResults/FeedbackResults";
 
 export const FeedbackFlow = () => {
   const [feedbackList, setFeedbackList] = useState<FeedbackList>([
@@ -33,6 +22,9 @@ export const FeedbackFlow = () => {
   const [email, setEmail] = useState("");
   const [rating, setRating] = useState<number | null>(null);
   const [comment, setComment] = useState("");
+  const [feedbackStep, setFeedbackStep] = useState<FeedbackSteps>(
+    FEEDBACK_STEPS.FORM
+  );
 
   const canSubmit = name && email && rating && comment;
 
@@ -42,14 +34,11 @@ export const FeedbackFlow = () => {
     if (!canSubmit) return alert("Please check all fields before submitting.");
 
     setFeedbackList([...feedbackList, { name, email, rating, comment }]);
+    setFeedbackStep(FEEDBACK_STEPS.RESULTS);
   };
 
-  return (
-    <div>
-      <Typography variant="h4" component="h1">
-        {heading}
-      </Typography>
-
+  const formSteps: Record<FeedbackSteps, ReactElement> = {
+    FORM: (
       <FeedbackForm
         {...{
           name,
@@ -63,6 +52,13 @@ export const FeedbackFlow = () => {
           handleSubmit,
         }}
       />
+    ),
+    RESULTS: <FeedbackResults />,
+  };
+
+  return (
+    <div>
+      {formSteps[feedbackStep]}
 
       <ul>
         {feedbackList.map(({ name, email, rating, comment }, index) => (
