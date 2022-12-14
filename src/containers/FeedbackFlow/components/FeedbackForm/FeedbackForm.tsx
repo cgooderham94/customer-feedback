@@ -59,11 +59,11 @@ export const FeedbackForm: FC<FeedbackFormProps> = ({
 
   return (
     <div>
-      <Typography variant="h4" component="h1">
+      <Typography id="form-heading" variant="h4" component="h1">
         {heading}
       </Typography>
 
-      <form onSubmit={handleSubmit}>
+      <form onSubmit={handleSubmit} aria-labelledby="form-heading">
         <TextField
           id={nameField.id}
           label={nameField.label}
