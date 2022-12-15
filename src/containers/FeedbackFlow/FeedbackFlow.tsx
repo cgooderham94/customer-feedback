@@ -1,21 +1,31 @@
-import { Container } from "@mui/system";
 import React, { ReactElement, SyntheticEvent, useMemo, useState } from "react";
+import { Container } from "@mui/system";
 import { FeedbackList, FeedbackSteps, FEEDBACK_STEPS } from "../types/Feedback";
 import { FeedbackForm } from "./components";
 import { FeedbackResults } from "./components/FeedbackResults/FeedbackResults";
-import { INITIAL_FEEDBACK_LIST, INITIAL_RATINGS_DISTRIBUTION } from "./data";
+import {
+  INITIAL_FEEDBACK_LIST,
+  INITIAL_FORM_ERRORS,
+  INITIAL_FORM_VALUES,
+  INITIAL_RATINGS_DISTRIBUTION,
+} from "./data";
+import type { FormErrors, FormValues, FieldId } from "./types";
 
 export const FeedbackFlow = () => {
   const [feedbackList, setFeedbackList] = useState<FeedbackList>(
     INITIAL_FEEDBACK_LIST
   );
-  const [name, setName] = useState("");
-  const [email, setEmail] = useState("");
-  const [rating, setRating] = useState<number | null>(null);
-  const [comment, setComment] = useState("");
+  const [formValues, setFormValues] = useState<FormValues>({
+    ...INITIAL_FORM_VALUES,
+  });
+  const [formErrors, setFormErrors] = useState<FormErrors>({
+    ...INITIAL_FORM_ERRORS,
+  });
   const [feedbackStep, setFeedbackStep] = useState<FeedbackSteps>(
     FEEDBACK_STEPS.FORM
   );
+
+  const { name, email, rating, comment } = formValues;
 
   const canSubmit = name && email && rating && comment;
 
@@ -35,16 +45,27 @@ export const FeedbackFlow = () => {
   );
 
   const resetFields = () => {
-    setName("");
-    setEmail("");
-    setRating(null);
-    setComment("");
+    setFormValues({ ...INITIAL_FORM_VALUES });
+    setFormErrors({ ...INITIAL_FORM_ERRORS });
   };
+
+  const handleFieldError = (field: FieldId, message: string) =>
+    setFormErrors((prevErrors) => ({ ...prevErrors, [field]: message }));
 
   const handleSubmit = (e: SyntheticEvent) => {
     e.preventDefault();
 
-    if (!canSubmit) return alert("Please check all fields before submitting.");
+    Object.keys(formValues).forEach((field) => {
+      if (!formValues[field as FieldId]) {
+        handleFieldError(field as FieldId, `This field is required`);
+      } else {
+        if (formErrors[field as FieldId]) {
+          handleFieldError(field as FieldId, "");
+        }
+      }
+    });
+
+    if (!canSubmit) return;
 
     setFeedbackList([...feedbackList, { name, email, rating, comment }]);
     setFeedbackStep(FEEDBACK_STEPS.RESULTS);
@@ -57,14 +78,9 @@ export const FeedbackFlow = () => {
     FORM: (
       <FeedbackForm
         {...{
-          name,
-          setName,
-          email,
-          setEmail,
-          rating,
-          setRating,
-          comment,
-          setComment,
+          formValues,
+          setFormValues,
+          formErrors,
           handleSubmit,
         }}
       />

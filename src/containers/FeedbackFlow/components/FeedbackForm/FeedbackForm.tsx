@@ -1,4 +1,10 @@
-import { Grid, TextField, Typography, InputLabel } from "@mui/material";
+import {
+  Grid,
+  TextField,
+  Typography,
+  InputLabel,
+  FormHelperText,
+} from "@mui/material";
 import { Box } from "@mui/system";
 import { Dispatch, FC, SetStateAction, SyntheticEvent } from "react";
 import { FEEDBACK_FORM_CONTENT } from "./constants";
@@ -11,81 +17,40 @@ import {
   SubmitButton,
 } from "./FeedbackForm.styles";
 import { RatingInput } from "../../../../components";
+import { FormErrors, FormValues } from "../../types";
 
 interface FeedbackFormProps {
-  name: string;
-  setName: Dispatch<SetStateAction<string>>;
-  email: string;
-  setEmail: Dispatch<SetStateAction<string>>;
-  rating: number | null;
-  setRating: Dispatch<SetStateAction<null | number>>;
-  comment: string;
-  setComment: Dispatch<SetStateAction<string>>;
+  formErrors: FormErrors;
+  formValues: FormValues;
+  setFormValues: Dispatch<SetStateAction<FormValues>>;
   handleSubmit: (e: SyntheticEvent) => void;
 }
 
-const {
-  heading,
-  name: nameField,
-  email: emailField,
-  rating: ratingField,
-  comment: commentField,
-} = FEEDBACK_FORM_CONTENT;
+const { heading } = FEEDBACK_FORM_CONTENT;
 
 const {
   fieldGroups: { leftCol: leftFieldGroup, rightCol: rightFieldGroup },
 } = FIELD_CONFIG;
 
 export const FeedbackForm: FC<FeedbackFormProps> = ({
-  name,
-  setName,
-  email,
-  setEmail,
-  rating,
-  setRating,
-  comment,
-  setComment,
+  formErrors,
+  formValues,
+  setFormValues,
   handleSubmit,
 }) => {
-  const handleFieldValue = (
-    e: SyntheticEvent,
-    setValue: Dispatch<SetStateAction<any>>
-  ) => {
+  const handleFieldValue = (fieldId: FieldId) => (e: SyntheticEvent) => {
     const {
       // @ts-ignore
       target: { value },
     } = e;
 
-    setValue(value);
+    const newValues = { ...formValues, [fieldId]: value };
+
+    setFormValues(newValues);
   };
 
-  const handleName = (e: SyntheticEvent) => handleFieldValue(e, setName);
-  const handleEmail = (e: SyntheticEvent) => handleFieldValue(e, setEmail);
-  const handleRating = (e: SyntheticEvent, newValue: number) =>
-    setRating(newValue);
-  const handleComment = (e: SyntheticEvent) => handleFieldValue(e, setComment);
-
-  const fieldState: Record<
-    FieldId,
-    { value: any; setter: (e: SyntheticEvent, newValue?: any) => void }
-  > = {
-    name: {
-      value: name,
-      setter: handleName,
-    },
-    email: {
-      value: email,
-      setter: handleEmail,
-    },
-    rating: {
-      value: rating,
-      setter: handleRating,
-    },
-    comment: {
-      value: comment,
-      setter: handleComment,
-    },
-  };
+  const handleRating = (e: SyntheticEvent, newValue: number | null) =>
+    setFormValues({ ...formValues, rating: newValue || 0 });
 
   return (
     <Box display="flex" flexDirection="column" gap="1rem">
@@ -95,21 +60,21 @@ export const FeedbackForm: FC<FeedbackFormProps> = ({
 
       <Form onSubmit={handleSubmit} aria-labelledby="form-heading">
         <Grid container flexWrap={{ sm: "nowrap" }} gap="1rem">
-          <Grid container flexDirection="column" gap="1rem" xs={12} md={5}>
+          <Grid container item flexDirection="column" gap="1rem" xs={12} md={5}>
             {leftFieldGroup.map(({ label, id, type, required }) => {
               return type === "rating" ? (
-                <>
-                  <RatingInput
-                    label={label}
-                    field={{
-                      value: fieldState[id].value,
-                      id: id,
-                      name: id,
-                      precision: 1,
-                      onChange: fieldState[id].setter,
-                    }}
-                  />
-                </>
+                <RatingInput
+                  key={id}
+                  label={label}
+                  field={{
+                    value: formValues[id] as number,
+                    id: id,
+                    name: id,
+                    precision: 1,
+                    onChange: handleRating,
+                  }}
+                  errorMessage={formErrors[id]}
+                />
               ) : (
                 <TextField
                   {...{
@@ -117,8 +82,11 @@ export const FeedbackForm: FC<FeedbackFormProps> = ({
                     label,
                     required,
                     type,
-                    value: fieldState[id].value,
-                    onChange: fieldState[id].setter,
+                    variant: "outlined",
+                    value: formValues[id],
+                    error: !!formErrors[id],
+                    helperText: formErrors[id],
+                    onChange: handleFieldValue(id),
                     fullWidth: true,
                     key: id,
                   }}
@@ -126,7 +94,7 @@ export const FeedbackForm: FC<FeedbackFormProps> = ({
               );
             })}
           </Grid>
-          <Grid xs={12} md={7}>
+          <Grid item xs={12} md={7}>
             {rightFieldGroup.map(({ label, id, type, required }) => (
               <FormControlExpanded variant="outlined" key={id}>
                 <InputLabel htmlFor={id}>{label}</InputLabel>
@@ -136,8 +104,9 @@ export const FeedbackForm: FC<FeedbackFormProps> = ({
                     label,
                     required,
                     type,
-                    value: fieldState[id].value,
-                    onChange: fieldState[id].setter,
+                    value: formValues[id],
+                    error: !!formErrors[id],
+                    onChange: handleFieldValue(id),
                     fullWidth: true,
                     multiline: true,
                     minRows: 1,
@@ -147,6 +116,7 @@ export const FeedbackForm: FC<FeedbackFormProps> = ({
                     },
                   }}
                 />
+                <FormHelperText error>{formErrors[id]}</FormHelperText>
               </FormControlExpanded>
             ))}
           </Grid>
