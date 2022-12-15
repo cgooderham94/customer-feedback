@@ -10,6 +10,7 @@ import {
   INITIAL_RATINGS_DISTRIBUTION,
 } from "./data";
 import type { FormErrors, FormValues, FieldId } from "./types";
+import { Box } from "@mui/material";
 
 export const FeedbackFlow = () => {
   const [feedbackList, setFeedbackList] = useState<FeedbackList>(
@@ -108,5 +109,9 @@ export const FeedbackFlow = () => {
     ),
   };
 
-  return <Container>{formSteps[feedbackStep]}</Container>;
+  return (
+    <Box padding="2rem 0">
+      <Container>{formSteps[feedbackStep]}</Container>
+    </Box>
+  );
 };

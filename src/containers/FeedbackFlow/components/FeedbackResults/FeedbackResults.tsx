@@ -12,6 +12,7 @@ import {
   ChartData,
 } from "chart.js";
 import { Bar } from "react-chartjs-2";
+import { Box } from "@mui/system";
 
 interface FeedbackResultsProps {
   feedbackList: FeedbackList;
@@ -40,11 +41,20 @@ export const FeedbackResults: FC<FeedbackResultsProps> = ({
 
   return (
     <>
-      <Typography variant="h4" component="h1">
-        {heading}
-      </Typography>
+      <Box
+        display="flex"
+        alignItems="center"
+        justifyContent="space-between"
+        flexWrap="wrap"
+      >
+        <Typography variant="h4" component="h1">
+          {heading}
+        </Typography>
 
-      <Button onClick={handleBack}>Go Back</Button>
+        <Button onClick={handleBack} variant="outlined">
+          Go Back
+        </Button>
+      </Box>
 
       <Bar data={chartData} options={CHART_OPTIONS} />
 
@@ -69,7 +79,7 @@ export const FeedbackResults: FC<FeedbackResultsProps> = ({
               <Grid container direction="column" gap="1rem">
                 <Grid container gap="0.5rem">
                   <div>{email}</div>
-                  <Rating value={rating} />
+                  <Rating value={rating} readOnly />
                 </Grid>
                 <div>{comment}</div>
               </Grid>
