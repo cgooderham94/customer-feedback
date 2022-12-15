@@ -44,6 +44,14 @@ export const FeedbackFlow = () => {
     [feedbackList]
   );
 
+  const feedbackListSorted = useMemo(
+    () =>
+      feedbackList.sort(
+        (prev, current) => current.date.valueOf() - prev.date.valueOf()
+      ),
+    [feedbackList]
+  );
+
   const resetFields = () => {
     setFormValues({ ...INITIAL_FORM_VALUES });
     setFormErrors({ ...INITIAL_FORM_ERRORS });
@@ -67,10 +75,14 @@ export const FeedbackFlow = () => {
 
     if (!canSubmit) return;
 
-    setFeedbackList([...feedbackList, { name, email, rating, comment }]);
+    const date = new Date();
+
+    setFeedbackList([...feedbackList, { name, email, rating, comment, date }]);
     setFeedbackStep(FEEDBACK_STEPS.RESULTS);
     resetFields();
   };
+
+  console.log("Feedback list", feedbackList);
 
   const handleBack = () => setFeedbackStep(FEEDBACK_STEPS.FORM);
 
@@ -86,7 +98,13 @@ export const FeedbackFlow = () => {
       />
     ),
     RESULTS: (
-      <FeedbackResults {...{ feedbackList, handleBack, ratingDistribution }} />
+      <FeedbackResults
+        {...{
+          feedbackList: feedbackListSorted,
+          handleBack,
+          ratingDistribution,
+        }}
+      />
     ),
   };
 
