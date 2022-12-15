@@ -16,7 +16,13 @@ export const INITIAL_FORM_ERRORS: FormErrors = {
   comment: "",
 };
 
-export const CHART_LABELS = [1, 2, 3, 4, 5];
+export const CHART_LABELS = [
+  "1 Star",
+  "2 Stars",
+  "3 Stars",
+  "4 Stars",
+  "5 Stars",
+];
 
 export const INITIAL_RATINGS_DISTRIBUTION = {
   "1": 0,

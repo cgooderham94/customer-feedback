@@ -19,16 +19,19 @@ export const FIELD_CONFIG: FieldConfig = {
         label: "Name",
         id: "name",
         type: "text",
+        required: true,
       },
       {
         label: "Email",
         id: "email",
         type: "email",
+        required: true,
       },
       {
         label: "Rating (1-5 stars)",
         id: "rating",
         type: "rating",
+        required: true,
       },
     ],
     rightCol: [
@@ -36,6 +39,7 @@ export const FIELD_CONFIG: FieldConfig = {
         label: "Comment",
         id: "comment",
         type: "textarea",
+        required: true,
       },
     ],
   },

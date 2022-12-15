@@ -1,5 +1,5 @@
 import React, { type FC } from "react";
-import { Button, Card, Grid, Rating, Typography } from "@mui/material";
+import { Button, Grid, Rating, Typography } from "@mui/material";
 import { CHART_OPTIONS, FEEDBACK_RESULTS_CONTENT } from "./constants";
 import { CHART_LABELS } from "../../data";
 import type { FeedbackList } from "../../../types/Feedback";
@@ -13,6 +13,7 @@ import {
 } from "chart.js";
 import { Bar } from "react-chartjs-2";
 import { Box } from "@mui/system";
+import { CommentCard } from "../";
 
 interface FeedbackResultsProps {
   feedbackList: FeedbackList;
@@ -20,7 +21,7 @@ interface FeedbackResultsProps {
   ratingDistribution: Record<string, number>;
 }
 
-const { heading, commentsHeading } = FEEDBACK_RESULTS_CONTENT;
+const { heading, commentsHeading, backBtn } = FEEDBACK_RESULTS_CONTENT;
 
 ChartJS.register(CategoryScale, LinearScale, BarElement, Title);
 
@@ -39,8 +40,12 @@ export const FeedbackResults: FC<FeedbackResultsProps> = ({
     ],
   };
 
+  const resultsCount = feedbackList.length;
+  const resultsCountStr =
+    resultsCount > 1 ? `${resultsCount} Ratings` : `${resultsCount} Rating`;
+
   return (
-    <>
+    <Box display="flex" flexDirection="column" gap="1rem">
       <Box
         display="flex"
         alignItems="center"
@@ -52,11 +57,13 @@ export const FeedbackResults: FC<FeedbackResultsProps> = ({
         </Typography>
 
         <Button onClick={handleBack} variant="outlined">
-          Go Back
+          {backBtn}
         </Button>
       </Box>
 
       <Bar data={chartData} options={CHART_OPTIONS} />
+
+      <Typography variant="subtitle1">{resultsCountStr}</Typography>
 
       <Grid
         component="section"
@@ -70,23 +77,11 @@ export const FeedbackResults: FC<FeedbackResultsProps> = ({
         </Typography>
 
         <Grid container gap="1rem" flexDirection="column">
-          {feedbackList.map(({ name, email, rating, comment }, index) => (
-            <Card
-              key={index}
-              variant="outlined"
-              sx={{ padding: "1rem", flexGrow: 1 }}
-            >
-              <Grid container direction="column" gap="1rem">
-                <Grid container gap="0.5rem">
-                  <div>{email}</div>
-                  <Rating value={rating} readOnly />
-                </Grid>
-                <div>{comment}</div>
-              </Grid>
-            </Card>
+          {feedbackList.map(({ email, rating, comment }, index) => (
+            <CommentCard {...{ key: index, email, rating, comment }} />
           ))}
         </Grid>
       </Grid>
-    </>
+    </Box>
   );
 };
