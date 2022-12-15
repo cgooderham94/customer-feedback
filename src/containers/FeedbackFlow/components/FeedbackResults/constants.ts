@@ -5,7 +5,7 @@ export const FEEDBACK_RESULTS_CONTENT = {
   commentsHeading: "Latest Comments",
 };
 
-export const CHART_OPTIONS: ChartOptions = {
+export const CHART_OPTIONS: ChartOptions<"bar"> = {
   responsive: true,
   plugins: {
     title: {

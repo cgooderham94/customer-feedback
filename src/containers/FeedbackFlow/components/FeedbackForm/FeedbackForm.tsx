@@ -1,4 +1,12 @@
-import { Button, TextField, Typography } from "@mui/material";
+import {
+  Grid,
+  TextField,
+  Typography,
+  InputLabel,
+  useMediaQuery,
+  Rating,
+} from "@mui/material";
+import { Box } from "@mui/system";
 import {
   ChangeEvent,
   Dispatch,
@@ -7,6 +15,13 @@ import {
   SyntheticEvent,
 } from "react";
 import { FEEDBACK_FORM_CONTENT } from "./constants";
+import { FieldId, FIELD_CONFIG } from "./data";
+import {
+  Form,
+  FormControlExpanded,
+  OutlinedInputExpanded,
+  SubmitButton,
+} from "./FeedbackForm.styles";
 
 interface FeedbackFormProps {
   name: string;
@@ -28,6 +43,10 @@ const {
   comment: commentField,
 } = FEEDBACK_FORM_CONTENT;
 
+const {
+  fieldGroups: { leftCol: leftFieldGroup, rightCol: rightFieldGroup },
+} = FIELD_CONFIG;
+
 export const FeedbackForm: FC<FeedbackFormProps> = ({
   name,
   setName,
@@ -40,7 +59,7 @@ export const FeedbackForm: FC<FeedbackFormProps> = ({
   handleSubmit,
 }) => {
   const handleFieldValue = (
-    e: ChangeEvent,
+    e: SyntheticEvent,
     setValue: Dispatch<SetStateAction<any>>
   ) => {
     const {
@@ -51,45 +70,101 @@ export const FeedbackForm: FC<FeedbackFormProps> = ({
     setValue(value);
   };
 
-  const handleName = (e: ChangeEvent) => handleFieldValue(e, setName);
-  const handleEmail = (e: ChangeEvent) => handleFieldValue(e, setEmail);
-  const handleRating = (e: ChangeEvent) => handleFieldValue(e, setRating);
-  const handleComment = (e: ChangeEvent) => handleFieldValue(e, setComment);
+  const handleName = (e: SyntheticEvent) => handleFieldValue(e, setName);
+  const handleEmail = (e: SyntheticEvent) => handleFieldValue(e, setEmail);
+  const handleRating = (e: SyntheticEvent, newValue: number) =>
+    setRating(newValue);
+  const handleComment = (e: SyntheticEvent) => handleFieldValue(e, setComment);
+
+  const fieldState: Record<
+    FieldId,
+    { value: any; setter: (e: SyntheticEvent, newValue?: any) => void }
+  > = {
+    name: {
+      value: name,
+      setter: handleName,
+    },
+    email: {
+      value: email,
+      setter: handleEmail,
+    },
+    rating: {
+      value: rating,
+      setter: handleRating,
+    },
+    comment: {
+      value: comment,
+      setter: handleComment,
+    },
+  };
 
   return (
-    <div>
+    <Box display="flex" flexDirection="column" gap="1rem">
       <Typography id="form-heading" variant="h4" component="h1">
         {heading}
       </Typography>
 
-      <form onSubmit={handleSubmit} aria-labelledby="form-heading">
-        <TextField
-          id={nameField.id}
-          label={nameField.label}
-          onChange={handleName}
-        />
-        <TextField
-          id={emailField.id}
-          label={emailField.label}
-          type="email"
-          onChange={handleEmail}
-        />
-        <TextField
-          id={ratingField.id}
-          label={ratingField.label}
-          type="number"
-          onChange={handleRating}
-        />
-        <TextField
-          id={commentField.id}
-          label={commentField.label}
-          multiline
-          onChange={handleComment}
-        />
-        <Button type="submit" variant="contained">
-          Submit
-        </Button>
-      </form>
-    </div>
+      <Form onSubmit={handleSubmit} aria-labelledby="form-heading">
+        <Grid container flexWrap={{ sm: "nowrap" }} gap="1rem">
+          <Grid container flexDirection="column" gap="1rem" xs={12} md={5}>
+            {leftFieldGroup.map(({ label, id, type, required }) => {
+              return type === "rating" ? (
+                <>
+                  <Typography variant="subtitle1" component="legend">
+                    {label}
+                  </Typography>
+                  <Rating
+                    value={fieldState[id].value}
+                    id={id}
+                    name={id}
+                    precision={1}
+                    onChange={fieldState[id].setter}
+                  />
+                </>
+              ) : (
+                <TextField
+                  {...{
+                    id,
+                    label,
+                    required,
+                    type,
+                    value: fieldState[id].value,
+                    onChange: fieldState[id].setter,
+                    fullWidth: true,
+                    key: id,
+                  }}
+                />
+              );
+            })}
+          </Grid>
+          <Grid xs={12} md={7}>
+            {rightFieldGroup.map(({ label, id, type, required }) => (
+              <FormControlExpanded variant="outlined" key={id}>
+                <InputLabel htmlFor={id}>{label}</InputLabel>
+                <OutlinedInputExpanded
+                  {...{
+                    id,
+                    label,
+                    required,
+                    type,
+                    value: fieldState[id].value,
+                    onChange: fieldState[id].setter,
+                    fullWidth: true,
+                    multiline: true,
+                    sx: { height: "100%" },
+                  }}
+                />
+              </FormControlExpanded>
+            ))}
+          </Grid>
+        </Grid>
+
+        <Box marginLeft={{ sm: "auto" }} width={{ xs: "100%", sm: "auto" }}>
+          <SubmitButton variant="contained" size="large" fullWidth>
+            Submit
+          </SubmitButton>
+        </Box>
+      </Form>
+    </Box>
   );
 };

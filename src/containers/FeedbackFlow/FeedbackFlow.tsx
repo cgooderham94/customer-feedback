@@ -23,8 +23,6 @@ export const FeedbackFlow = () => {
     () =>
       feedbackList.reduce<Record<string, number>>(
         (acc, { rating }) => {
-          console.log("Feedback list reduce");
-
           const ratingStr = rating.toString();
 
           acc[ratingStr] = acc[ratingStr] ? (acc[ratingStr] += 1) : 1;
@@ -35,8 +33,6 @@ export const FeedbackFlow = () => {
       ),
     [feedbackList]
   );
-
-  console.log("ratings dist", ratingDistribution);
 
   const resetFields = () => {
     setName("");
