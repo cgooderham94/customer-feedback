@@ -1,27 +1,16 @@
-import {
-  Grid,
-  TextField,
-  Typography,
-  InputLabel,
-  useMediaQuery,
-  Rating,
-} from "@mui/material";
+import { Grid, TextField, Typography, InputLabel } from "@mui/material";
 import { Box } from "@mui/system";
-import {
-  ChangeEvent,
-  Dispatch,
-  FC,
-  SetStateAction,
-  SyntheticEvent,
-} from "react";
+import { Dispatch, FC, SetStateAction, SyntheticEvent } from "react";
 import { FEEDBACK_FORM_CONTENT } from "./constants";
 import { FieldId, FIELD_CONFIG } from "./data";
 import {
   Form,
   FormControlExpanded,
   OutlinedInputExpanded,
+  outlinedTextareaStyles,
   SubmitButton,
 } from "./FeedbackForm.styles";
+import { RatingInput } from "../../../../components";
 
 interface FeedbackFormProps {
   name: string;
@@ -110,15 +99,15 @@ export const FeedbackForm: FC<FeedbackFormProps> = ({
             {leftFieldGroup.map(({ label, id, type, required }) => {
               return type === "rating" ? (
                 <>
-                  <Typography variant="subtitle1" component="legend">
-                    {label}
-                  </Typography>
-                  <Rating
-                    value={fieldState[id].value}
-                    id={id}
-                    name={id}
-                    precision={1}
-                    onChange={fieldState[id].setter}
+                  <RatingInput
+                    label={label}
+                    field={{
+                      value: fieldState[id].value,
+                      id: id,
+                      name: id,
+                      precision: 1,
+                      onChange: fieldState[id].setter,
+                    }}
                   />
                 </>
               ) : (
@@ -151,7 +140,11 @@ export const FeedbackForm: FC<FeedbackFormProps> = ({
                     onChange: fieldState[id].setter,
                     fullWidth: true,
                     multiline: true,
+                    minRows: 1,
                     sx: { height: "100%" },
+                    inputProps: {
+                      style: outlinedTextareaStyles,
+                    },
                   }}
                 />
               </FormControlExpanded>

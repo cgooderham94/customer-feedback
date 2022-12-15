@@ -21,6 +21,8 @@ export const OutlinedInputExpanded = styledMui(OutlinedInput)`
   height: 100%;
 `;
 
+export const outlinedTextareaStyles = { height: "100%" };
+
 export const SubmitButton = styled(Button).attrs({
   type: "submit",
 })`
