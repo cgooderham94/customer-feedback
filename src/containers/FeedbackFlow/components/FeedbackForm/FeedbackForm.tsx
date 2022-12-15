@@ -58,10 +58,10 @@ export const FeedbackForm: FC<FeedbackFormProps> = ({
         {heading}
       </Typography>
 
-      <Form onSubmit={handleSubmit} aria-labelledby="form-heading">
+      <Form onSubmit={handleSubmit} noValidate aria-labelledby="form-heading">
         <Grid container flexWrap={{ sm: "nowrap" }} gap="1rem">
           <Grid container item flexDirection="column" gap="1rem" xs={12} md={5}>
-            {leftFieldGroup.map(({ label, id, type, required }) => {
+            {leftFieldGroup.map(({ label, id, type }) => {
               return type === "rating" ? (
                 <RatingInput
                   key={id}
@@ -80,7 +80,6 @@ export const FeedbackForm: FC<FeedbackFormProps> = ({
                   {...{
                     id,
                     label,
-                    required,
                     type,
                     variant: "outlined",
                     value: formValues[id],
@@ -95,14 +94,13 @@ export const FeedbackForm: FC<FeedbackFormProps> = ({
             })}
           </Grid>
           <Grid item xs={12} md={7}>
-            {rightFieldGroup.map(({ label, id, type, required }) => (
+            {rightFieldGroup.map(({ label, id, type }) => (
               <FormControlExpanded variant="outlined" key={id}>
                 <InputLabel htmlFor={id}>{label}</InputLabel>
                 <OutlinedInputExpanded
                   {...{
                     id,
                     label,
-                    required,
                     type,
                     value: formValues[id],
                     error: !!formErrors[id],

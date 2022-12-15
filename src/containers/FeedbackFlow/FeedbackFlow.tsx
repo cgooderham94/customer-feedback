@@ -7,10 +7,10 @@ import {
   INITIAL_FEEDBACK_LIST,
   INITIAL_FORM_ERRORS,
   INITIAL_FORM_VALUES,
-  INITIAL_RATINGS_DISTRIBUTION,
 } from "./data";
 import type { FormErrors, FormValues, FieldId } from "./types";
 import { Box } from "@mui/material";
+import { getRatingsDistribution, validateFields } from "./helpers";
 
 export const FeedbackFlow = () => {
   const [feedbackList, setFeedbackList] = useState<FeedbackList>(
@@ -28,20 +28,8 @@ export const FeedbackFlow = () => {
 
   const { name, email, rating, comment } = formValues;
 
-  const canSubmit = name && email && rating && comment;
-
-  const ratingDistribution = useMemo(
-    () =>
-      feedbackList.reduce<Record<string, number>>(
-        (acc, { rating }) => {
-          const ratingStr = rating.toString();
-
-          acc[ratingStr] = acc[ratingStr] ? (acc[ratingStr] += 1) : 1;
-
-          return acc;
-        },
-        { ...INITIAL_RATINGS_DISTRIBUTION }
-      ),
+  const ratingsDistribution = useMemo(
+    () => getRatingsDistribution(feedbackList),
     [feedbackList]
   );
 
@@ -64,17 +52,13 @@ export const FeedbackFlow = () => {
   const handleSubmit = (e: SyntheticEvent) => {
     e.preventDefault();
 
-    Object.keys(formValues).forEach((field) => {
-      if (!formValues[field as FieldId]) {
-        handleFieldError(field as FieldId, `This field is required`);
-      } else {
-        if (formErrors[field as FieldId]) {
-          handleFieldError(field as FieldId, "");
-        }
-      }
+    const isValid = validateFields({
+      formErrors,
+      setFieldError: handleFieldError,
+      formValues,
     });
 
-    if (!canSubmit) return;
+    if (!isValid) return;
 
     const date = new Date();
 
@@ -82,8 +66,6 @@ export const FeedbackFlow = () => {
     setFeedbackStep(FEEDBACK_STEPS.RESULTS);
     resetFields();
   };
-
-  console.log("Feedback list", feedbackList);
 
   const handleBack = () => setFeedbackStep(FEEDBACK_STEPS.FORM);
 
@@ -103,7 +85,7 @@ export const FeedbackFlow = () => {
         {...{
           feedbackList: feedbackListSorted,
           handleBack,
-          ratingDistribution,
+          ratingsDistribution,
         }}
       />
     ),

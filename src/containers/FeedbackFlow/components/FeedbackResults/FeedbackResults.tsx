@@ -18,7 +18,7 @@ import { CommentCard } from "../";
 interface FeedbackResultsProps {
   feedbackList: FeedbackList;
   handleBack: () => void;
-  ratingDistribution: Record<string, number>;
+  ratingsDistribution: Record<string, number>;
 }
 
 const { heading, commentsHeading, backBtn } = FEEDBACK_RESULTS_CONTENT;
@@ -28,13 +28,13 @@ ChartJS.register(CategoryScale, LinearScale, BarElement, Title);
 export const FeedbackResults: FC<FeedbackResultsProps> = ({
   feedbackList,
   handleBack,
-  ratingDistribution,
+  ratingsDistribution,
 }) => {
   const chartData: ChartData<"bar"> = {
     labels: CHART_LABELS,
     datasets: [
       {
-        data: Object.values(ratingDistribution),
+        data: Object.values(ratingsDistribution),
         backgroundColor: "rgba(255, 99, 132, 0.5)",
       },
     ],

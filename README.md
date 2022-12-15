@@ -58,9 +58,10 @@ adapts gracefully to different screen sizes and devices.
 - [x] Feedback form container component
 - [x] Comments state
   - [x] Push form submission to comments state
-- [ ] Validate form fields
+- [x] Validate form fields
 - [x] Multi-step flow -> submissions page
 - [x] Add distribution chart via third-party dep
 - [ ] Refine distribution chart options
-- [ ] UI Layout
+- [x] UI Layout
 - [ ] Styling/UI refinements
+- [ ] General abstractions, re-structuring and nit tidying
