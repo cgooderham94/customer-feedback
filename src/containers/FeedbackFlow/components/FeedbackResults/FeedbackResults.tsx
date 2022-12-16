@@ -3,10 +3,10 @@ import { Button, Grid, Typography } from "@mui/material";
 import { CHART_OPTIONS, FEEDBACK_RESULTS_CONTENT } from "./constants";
 import { CHART_LABELS } from "../../data";
 import type { FeedbackList } from "../../../types/Feedback";
-import { Bar } from "react-chartjs-2";
 import { Box } from "@mui/system";
 import { CommentCard } from "../";
 import { getResultsCount } from "./helpers";
+import { type ChartData, Bar } from "../../../../components/BarChart/BarChart";
 
 interface FeedbackResultsProps {
   feedbackList: FeedbackList;

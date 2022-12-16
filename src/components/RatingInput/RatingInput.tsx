@@ -10,7 +10,7 @@ import {
 import { visuallyHidden } from "@mui/utils";
 
 interface RatingInputProps {
-  label: ReactNode;
+  label?: ReactNode;
   id: RatingProps["id"];
   value: RatingProps["value"];
   onChange: RatingProps["onChange"];

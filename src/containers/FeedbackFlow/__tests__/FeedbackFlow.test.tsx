@@ -2,7 +2,12 @@ import { fireEvent, render, screen, within } from "@testing-library/react";
 import userEvent from "@testing-library/user-event";
 import { FeedbackFlow } from "../FeedbackFlow";
 import { expectSubmitFeedback } from "./helpers";
+import "../../../components/BarChart/BarChart";
 import "../data";
+
+jest.mock("../../../components/BarChart/BarChart", () => ({
+  Bar: () => null,
+}));
 
 jest.mock("../data.ts", () => ({
   ...jest.requireActual("../data.ts"),
@@ -178,8 +183,6 @@ describe("FeedbackFlow", () => {
       ).toBeInTheDocument();
       expect(screen.getByText(new RegExp(COMMENT, "i"))).toBeInTheDocument();
     });
-
-    it("displays distribution chart of past ratings", () => {});
 
     it("allows user to go back to FeedbackForm with reset values", () => {
       renderComponent();
