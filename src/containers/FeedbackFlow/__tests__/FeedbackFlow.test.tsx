@@ -12,6 +12,7 @@ jest.mock("../data.ts", () => ({
       email: "kim@atkinson.com",
       rating: 5,
       comment: "Excellent product, excellent service!",
+      date: new Date(),
     },
     {
       name: "David King",
@@ -19,6 +20,7 @@ jest.mock("../data.ts", () => ({
       rating: 3,
       comment:
         "Took some time to get things up and running but product worked well thereafter.",
+      date: new Date(),
     },
   ],
 }));
@@ -27,6 +29,7 @@ const NAME = "Test Person";
 const EMAIL = "test@person.com";
 const RATING = 4;
 const COMMENT = "Fantastic product.";
+const ratingStr = RATING > 1 ? `${RATING} Stars` : "1 Star";
 
 const renderComponent = () => render(<FeedbackFlow />);
 
@@ -50,7 +53,9 @@ describe("FeedbackFlow", () => {
 
     expect(withinForm.getByLabelText(/name/i)).toBeInTheDocument();
     expect(withinForm.getByLabelText(/email/i)).toBeInTheDocument();
-    expect(withinForm.getByLabelText(/rating/i)).toBeInTheDocument();
+    expect(
+      withinForm.getByText(/rating/i, { selector: "legend" })
+    ).toBeInTheDocument();
     expect(withinForm.getByLabelText(/comment/i)).toBeInTheDocument();
 
     expect(
@@ -72,10 +77,9 @@ describe("FeedbackFlow", () => {
       screen.getByRole("heading", { name: /feedback results/i })
     ).toBeInTheDocument();
 
-    expect(screen.getByText(new RegExp(NAME, "i"))).toBeInTheDocument();
     expect(screen.getByText(new RegExp(EMAIL, "i"))).toBeInTheDocument();
     expect(
-      screen.getByText(new RegExp(RATING.toString(), "i"))
+      screen.getByRole("img", { name: new RegExp(ratingStr, "i") })
     ).toBeInTheDocument();
     expect(screen.getByText(new RegExp(COMMENT, "i"))).toBeInTheDocument();
   });
@@ -93,13 +97,11 @@ describe("FeedbackFlow", () => {
         comment: COMMENT,
       });
 
-      expect(screen.getByText(/kimberley atkinson/i)).toBeInTheDocument();
       expect(screen.getByText(/kim@atkinson.com/i)).toBeInTheDocument();
       expect(
         screen.getByText(/excellent product, excellent service!/i)
       ).toBeInTheDocument();
 
-      expect(screen.getByText(/david king/i)).toBeInTheDocument();
       expect(screen.getByText(/david@king.com/i)).toBeInTheDocument();
       expect(
         screen.getByText(
@@ -107,8 +109,10 @@ describe("FeedbackFlow", () => {
         )
       ).toBeInTheDocument();
 
-      expect(screen.getByText(new RegExp(NAME, "i"))).toBeInTheDocument();
       expect(screen.getByText(new RegExp(EMAIL, "i"))).toBeInTheDocument();
+      expect(
+        screen.getByRole("img", { name: new RegExp(ratingStr, "i") })
+      ).toBeInTheDocument();
       expect(screen.getByText(new RegExp(COMMENT, "i"))).toBeInTheDocument();
     });
 
@@ -135,7 +139,7 @@ describe("FeedbackFlow", () => {
 
       expect(screen.getByLabelText(/name/i)).toHaveValue("");
       expect(screen.getByLabelText(/email/i)).toHaveValue("");
-      expect(screen.getByLabelText(/rating/i)).toHaveValue(null);
+      expect(screen.getByText(/no stars selected/i)).toBeInTheDocument();
       expect(screen.getByLabelText(/comment/i)).toHaveValue("");
     });
   });
