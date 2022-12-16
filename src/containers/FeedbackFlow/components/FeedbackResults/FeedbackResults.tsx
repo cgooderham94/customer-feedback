@@ -5,7 +5,7 @@ import { CHART_LABELS } from "../../data";
 import type { FeedbackList } from "../../../types/Feedback";
 import { Box } from "@mui/system";
 import { CommentCard } from "../";
-import { getPluralised } from "./helpers";
+import { getChartAriaLabel, getPluralised } from "./helpers";
 import {
   type ChartData,
   Bar,
@@ -52,18 +52,24 @@ export const FeedbackResults: FC<FeedbackResultsProps> = ({
         display="flex"
         alignItems="center"
         justifyContent="space-between"
+        gap="0.5rem"
         flexWrap="wrap"
       >
         <Typography variant="h4" component="h1">
           {heading}
         </Typography>
 
-        <Button onClick={handleBack} variant="outlined">
+        <Button onClick={handleBack} variant="contained">
           {backBtn}
         </Button>
       </Box>
 
-      <Bar data={chartData} options={CHART_OPTIONS} />
+      <Box
+        role="graphics-document"
+        aria-label={getChartAriaLabel(ratingsDistribution)}
+      >
+        <Bar data={chartData} options={CHART_OPTIONS} />
+      </Box>
 
       <Box display="flex" alignItems="center" gap="0.5rem">
         <Typography variant="subtitle1" component="p" display="flex">

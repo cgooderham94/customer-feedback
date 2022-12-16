@@ -4,6 +4,7 @@ export const FEEDBACK_RESULTS_CONTENT = {
   heading: "Feedback Results",
   commentsHeading: "Latest Comments",
   backBtn: "Go Back",
+  chartLabelPrepend: "Distribution of ratings.",
 };
 
 export const CHART_OPTIONS: ChartOptions<"bar"> = {

@@ -7,8 +7,8 @@ import React, {
 } from "react";
 import { RatingInput } from "../../../../components";
 import { TextArea } from "../../../../components/TextArea/TextArea";
-import type { FormErrors, FormValues } from "../../types";
-import type { Field, FieldId } from "../FeedbackForm/data";
+import type { FieldId, FormErrors, FormValues } from "../../types";
+import type { Field } from "../FeedbackForm/data";
 
 interface FieldGroupProps {
   values: FormValues;

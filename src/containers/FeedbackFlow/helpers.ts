@@ -43,7 +43,6 @@ const getRatingsDistribution = (feedbackList: FeedbackList) =>
   feedbackList.reduce<Record<string, number>>(
     (acc, { rating }) => {
       const ratingStr = rating.toString();
-
       acc[ratingStr] = acc[ratingStr] ? (acc[ratingStr] += 1) : 1;
 
       return acc;

@@ -1,6 +1,5 @@
 import { OutlinedTextFieldProps } from "@mui/material";
-
-export type FieldId = "name" | "email" | "rating" | "comment";
+import { FieldId } from "../../types";
 
 export interface Field extends Omit<OutlinedTextFieldProps, "variant"> {
   id: FieldId;
