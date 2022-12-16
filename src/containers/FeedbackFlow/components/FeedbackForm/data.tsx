@@ -6,12 +6,6 @@ export interface Field extends Omit<OutlinedTextFieldProps, "variant"> {
   id: FieldId;
 }
 
-interface FieldConfig {
-  fieldGroups: {
-    [key in "leftCol" | "rightCol"]: Field[];
-  };
-}
-
 export const ALL_FIELDS: Record<FieldId, Field> = {
   name: {
     label: "Name",
@@ -39,9 +33,7 @@ export const ALL_FIELDS: Record<FieldId, Field> = {
   },
 };
 
-export const FIELD_CONFIG: FieldConfig = {
-  fieldGroups: {
-    leftCol: [ALL_FIELDS["name"], ALL_FIELDS["email"], ALL_FIELDS["rating"]],
-    rightCol: [ALL_FIELDS["comment"]],
-  },
+export const FIELD_CONFIG = {
+  leftCol: [ALL_FIELDS["name"], ALL_FIELDS["email"], ALL_FIELDS["rating"]],
+  rightCol: [ALL_FIELDS["comment"]],
 };

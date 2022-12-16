@@ -22,7 +22,7 @@ export const RatingInput: FC<RatingInputProps> = ({
   onChange,
   errorMessage,
 }) => (
-  <FormControl>
+  <FormControl key={id}>
     <Typography variant="subtitle1" component="legend" marginBottom="0.5rem">
       {label}
     </Typography>

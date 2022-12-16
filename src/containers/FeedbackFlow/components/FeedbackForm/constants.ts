@@ -1,5 +1,6 @@
 export const FEEDBACK_FORM_CONTENT = {
   heading: "Feedback Form",
+  submit: "Submit",
 };
 
 export const EMAIL_REGEX =
