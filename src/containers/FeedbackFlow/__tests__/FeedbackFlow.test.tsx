@@ -1,4 +1,4 @@
-import { render, screen, within } from "@testing-library/react";
+import { fireEvent, render, screen, within } from "@testing-library/react";
 import userEvent from "@testing-library/user-event";
 import { FeedbackFlow } from "../FeedbackFlow";
 import { expectSubmitFeedback } from "./helpers";
@@ -84,7 +84,70 @@ describe("FeedbackFlow", () => {
     expect(screen.getByText(new RegExp(COMMENT, "i"))).toBeInTheDocument();
   });
 
-  it("shows validation errors when form fields are not correctly completed", () => {});
+  describe("form validation", () => {
+    it("shows required field errors when form fields are not filled in", () => {
+      renderComponent();
+
+      const form = screen.getByRole("form", { name: /feedback form/i });
+      const withinForm = within(form);
+      const requiredRegex = /this field is required/i;
+
+      expect(form).toBeInTheDocument();
+
+      const submitBtn = withinForm.getByRole("button", { name: /submit/i });
+
+      expect(submitBtn).toBeInTheDocument();
+      userEvent.click(submitBtn);
+
+      expect(screen.getAllByText(requiredRegex)).toHaveLength(4);
+
+      const name = screen.getByRole("textbox", { name: /name/i });
+      const email = screen.getByRole("textbox", { name: /email/i });
+      const fiveStars = screen.getByRole("radio", { name: /5 stars/i });
+      const comment = screen.getByRole("textbox", { name: /comment/i });
+
+      userEvent.type(name, NAME);
+      userEvent.click(submitBtn);
+
+      expect(screen.getAllByText(requiredRegex)).toHaveLength(3);
+
+      userEvent.type(email, EMAIL);
+      userEvent.click(submitBtn);
+
+      expect(screen.getAllByText(requiredRegex)).toHaveLength(2);
+
+      fireEvent.click(fiveStars);
+      userEvent.click(submitBtn);
+
+      expect(screen.getByText(requiredRegex)).toBeInTheDocument();
+
+      userEvent.type(comment, COMMENT);
+      userEvent.click(submitBtn);
+
+      expect(
+        screen.queryByRole("form", { name: /feedback form/i })
+      ).not.toBeInTheDocument();
+    });
+
+    it("shows email error when email value is invalid", () => {
+      renderComponent();
+
+      const form = screen.getByRole("form", { name: /feedback form/i });
+      const withinForm = within(form);
+
+      expect(form).toBeInTheDocument();
+
+      const submitBtn = withinForm.getByRole("button", { name: /submit/i });
+      const email = screen.getByRole("textbox", { name: /email/i });
+
+      userEvent.type(email, "invalidemailaddress");
+      userEvent.click(submitBtn);
+
+      expect(
+        screen.getByText(/a valid email address is required/i)
+      ).toBeInTheDocument();
+    });
+  });
 
   describe("FeedbackResults step", () => {
     it("displays list of past feedback", () => {
