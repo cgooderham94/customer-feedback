@@ -1,6 +1,6 @@
-export const getResultsCount = (results: number) => {
-  const baseStr = `${results} Rating`;
-  const plural = results > 1 ? "s" : "";
+export const getPluralised = (count: number, baseWord: string) => {
+  const baseStr = `${count} ${baseWord}`;
+  const plural = count > 1 ? "s" : "";
 
   return [baseStr, plural].join("");
 };

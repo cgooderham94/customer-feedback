@@ -1,4 +1,4 @@
-import { FeedbackList } from "../types/Feedback";
+import { Feedback, FeedbackList } from "../types/Feedback";
 import { EMAIL_REGEX } from "./components/FeedbackForm/constants";
 import { ALL_FIELDS, Field } from "./components/FeedbackForm/data";
 import { INITIAL_RATINGS_DISTRIBUTION } from "./data";
@@ -39,7 +39,7 @@ export const validateFields = ({
   return isValid;
 };
 
-export const getRatingsDistribution = (feedbackList: FeedbackList) =>
+const getRatingsDistribution = (feedbackList: FeedbackList) =>
   feedbackList.reduce<Record<string, number>>(
     (acc, { rating }) => {
       const ratingStr = rating.toString();
@@ -50,3 +50,23 @@ export const getRatingsDistribution = (feedbackList: FeedbackList) =>
     },
     { ...INITIAL_RATINGS_DISTRIBUTION }
   );
+
+const getAverageRating = (feedbackList: FeedbackList) => {
+  const ratingsTotal = feedbackList.reduce((acc, currFeedback) => {
+    return (acc += currFeedback.rating);
+  }, 0);
+  const averageRating = ratingsTotal / feedbackList.length;
+  const roundToHalfInteger = Math.round(averageRating * 2) / 2;
+
+  return roundToHalfInteger;
+};
+
+export const getFeedbackMeta = (feedbackList: FeedbackList) => {
+  return {
+    dateSortedList: feedbackList.sort(
+      (prev, current) => current.date.valueOf() - prev.date.valueOf()
+    ),
+    averageRating: getAverageRating(feedbackList),
+    ratingsDistribution: getRatingsDistribution(feedbackList),
+  };
+};

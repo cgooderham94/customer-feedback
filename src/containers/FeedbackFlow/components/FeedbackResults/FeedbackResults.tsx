@@ -1,14 +1,23 @@
 import React, { type FC } from "react";
-import { Button, Grid, Typography } from "@mui/material";
+import { Button, Grid, Rating, Typography } from "@mui/material";
 import { CHART_OPTIONS, FEEDBACK_RESULTS_CONTENT } from "./constants";
 import { CHART_LABELS } from "../../data";
 import type { FeedbackList } from "../../../types/Feedback";
 import { Box } from "@mui/system";
 import { CommentCard } from "../";
-import { getResultsCount } from "./helpers";
-import { type ChartData, Bar } from "../../../../components/BarChart/BarChart";
+import { getPluralised } from "./helpers";
+import {
+  type ChartData,
+  Bar,
+  Chart,
+  CategoryScale,
+  BarElement,
+  LinearScale,
+} from "../../../../components/BarChart/BarChart";
+import { blue } from "@mui/material/colors";
 
 interface FeedbackResultsProps {
+  averageRating: number;
   feedbackList: FeedbackList;
   handleBack: () => void;
   ratingsDistribution: Record<string, number>;
@@ -16,7 +25,10 @@ interface FeedbackResultsProps {
 
 const { heading, commentsHeading, backBtn } = FEEDBACK_RESULTS_CONTENT;
 
+Chart.register(LinearScale, CategoryScale, BarElement);
+
 export const FeedbackResults: FC<FeedbackResultsProps> = ({
+  averageRating,
   feedbackList,
   handleBack,
   ratingsDistribution,
@@ -26,12 +38,13 @@ export const FeedbackResults: FC<FeedbackResultsProps> = ({
     datasets: [
       {
         data: Object.values(ratingsDistribution),
-        backgroundColor: "rgba(255, 99, 132, 0.5)",
+        backgroundColor: blue["500"],
       },
     ],
   };
 
-  const resultsCount = getResultsCount(feedbackList.length);
+  const resultsCount = getPluralised(feedbackList.length, "Rating");
+  const averageRatingStr = getPluralised(averageRating, "Star");
 
   return (
     <Box display="flex" flexDirection="column" gap="1rem">
@@ -52,7 +65,13 @@ export const FeedbackResults: FC<FeedbackResultsProps> = ({
 
       <Bar data={chartData} options={CHART_OPTIONS} />
 
-      <Typography variant="subtitle1">{resultsCount}</Typography>
+      <Box display="flex" alignItems="center" gap="0.5rem">
+        <Typography variant="subtitle1" component="p" display="flex">
+          ({resultsCount})
+        </Typography>
+        {averageRatingStr}
+        <Rating value={averageRating} precision={0.5} readOnly />
+      </Box>
 
       <Grid
         component="section"

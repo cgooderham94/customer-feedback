@@ -15,7 +15,12 @@ export const CommentCard: FC<CommentCardProps> = ({
 }) => (
   <Card variant="outlined">
     <div>{email}</div>
-    <Rating value={rating} readOnly />
+    <Rating
+      value={rating}
+      size="small"
+      readOnly
+      sx={{ marginTop: "0.25rem" }}
+    />
     <div>{comment}</div>
   </Card>
 );

@@ -10,7 +10,7 @@ import {
 } from "./data";
 import type { FormErrors, FormValues, FieldId } from "./types";
 import { Box } from "@mui/material";
-import { getRatingsDistribution, validateFields } from "./helpers";
+import { getFeedbackMeta, validateFields } from "./helpers";
 
 export const FeedbackFlow = () => {
   const [feedbackList, setFeedbackList] = useState<FeedbackList>(
@@ -28,16 +28,8 @@ export const FeedbackFlow = () => {
 
   const { name, email, rating, comment } = formValues;
 
-  const ratingsDistribution = useMemo(
-    () => getRatingsDistribution(feedbackList),
-    [feedbackList]
-  );
-
-  const feedbackListSorted = useMemo(
-    () =>
-      feedbackList.sort(
-        (prev, current) => current.date.valueOf() - prev.date.valueOf()
-      ),
+  const { averageRating, dateSortedList, ratingsDistribution } = useMemo(
+    () => getFeedbackMeta(feedbackList),
     [feedbackList]
   );
 
@@ -83,7 +75,8 @@ export const FeedbackFlow = () => {
     RESULTS: (
       <FeedbackResults
         {...{
-          feedbackList: feedbackListSorted,
+          averageRating,
+          feedbackList: dateSortedList,
           handleBack,
           ratingsDistribution,
         }}
