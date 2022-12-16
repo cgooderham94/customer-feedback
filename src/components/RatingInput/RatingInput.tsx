@@ -9,13 +9,17 @@ import {
 
 interface RatingInputProps {
   label: ReactNode;
-  field: RatingProps;
+  id: RatingProps["id"];
+  value: RatingProps["value"];
+  onChange: RatingProps["onChange"];
   errorMessage?: string;
 }
 
 export const RatingInput: FC<RatingInputProps> = ({
   label,
-  field: { id, value, onChange },
+  id,
+  value,
+  onChange,
   errorMessage,
 }) => (
   <FormControl>

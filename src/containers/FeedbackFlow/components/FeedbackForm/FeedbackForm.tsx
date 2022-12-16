@@ -1,23 +1,12 @@
-import {
-  Grid,
-  TextField,
-  Typography,
-  InputLabel,
-  FormHelperText,
-} from "@mui/material";
+import { Grid, TextField, Typography } from "@mui/material";
 import { Box } from "@mui/system";
 import { Dispatch, FC, SetStateAction, SyntheticEvent } from "react";
 import { FEEDBACK_FORM_CONTENT } from "./constants";
 import { FieldId, FIELD_CONFIG } from "./data";
-import {
-  Form,
-  FormControlExpanded,
-  OutlinedInputExpanded,
-  outlinedTextareaStyles,
-  SubmitButton,
-} from "./FeedbackForm.styles";
+import { Form, SubmitButton } from "./FeedbackForm.styles";
 import { RatingInput } from "../../../../components";
 import { FormErrors, FormValues } from "../../types";
+import { TextArea } from "../../../../components/TextArea/TextArea";
 
 interface FeedbackFormProps {
   formErrors: FormErrors;
@@ -66,13 +55,9 @@ export const FeedbackForm: FC<FeedbackFormProps> = ({
                 <RatingInput
                   key={id}
                   label={label}
-                  field={{
-                    value: formValues[id] as number,
-                    id: id,
-                    name: id,
-                    precision: 1,
-                    onChange: handleRating,
-                  }}
+                  value={formValues[id] as number}
+                  id={id}
+                  onChange={handleRating}
                   errorMessage={formErrors[id]}
                 />
               ) : (
@@ -95,27 +80,16 @@ export const FeedbackForm: FC<FeedbackFormProps> = ({
           </Grid>
           <Grid item xs={12} md={7}>
             {rightFieldGroup.map(({ label, id, type }) => (
-              <FormControlExpanded variant="outlined" key={id}>
-                <InputLabel htmlFor={id}>{label}</InputLabel>
-                <OutlinedInputExpanded
-                  {...{
-                    id,
-                    label,
-                    type,
-                    value: formValues[id],
-                    error: !!formErrors[id],
-                    onChange: handleFieldValue(id),
-                    fullWidth: true,
-                    multiline: true,
-                    minRows: 1,
-                    sx: { height: "100%" },
-                    inputProps: {
-                      style: outlinedTextareaStyles,
-                    },
-                  }}
-                />
-                <FormHelperText error>{formErrors[id]}</FormHelperText>
-              </FormControlExpanded>
+              <TextArea
+                {...{
+                  id,
+                  label,
+                  type,
+                  value: formValues[id],
+                  error: formErrors[id],
+                  onChange: handleFieldValue(id),
+                }}
+              />
             ))}
           </Grid>
         </Grid>
