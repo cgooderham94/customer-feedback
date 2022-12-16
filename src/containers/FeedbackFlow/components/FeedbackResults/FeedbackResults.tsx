@@ -1,19 +1,12 @@
 import React, { type FC } from "react";
-import { Button, Grid, Rating, Typography } from "@mui/material";
+import { Button, Grid, Typography } from "@mui/material";
 import { CHART_OPTIONS, FEEDBACK_RESULTS_CONTENT } from "./constants";
 import { CHART_LABELS } from "../../data";
 import type { FeedbackList } from "../../../types/Feedback";
-import {
-  Chart as ChartJS,
-  CategoryScale,
-  LinearScale,
-  BarElement,
-  Title,
-  ChartData,
-} from "chart.js";
 import { Bar } from "react-chartjs-2";
 import { Box } from "@mui/system";
 import { CommentCard } from "../";
+import { getResultsCount } from "./helpers";
 
 interface FeedbackResultsProps {
   feedbackList: FeedbackList;
@@ -22,8 +15,6 @@ interface FeedbackResultsProps {
 }
 
 const { heading, commentsHeading, backBtn } = FEEDBACK_RESULTS_CONTENT;
-
-ChartJS.register(CategoryScale, LinearScale, BarElement, Title);
 
 export const FeedbackResults: FC<FeedbackResultsProps> = ({
   feedbackList,
@@ -40,9 +31,7 @@ export const FeedbackResults: FC<FeedbackResultsProps> = ({
     ],
   };
 
-  const resultsCount = feedbackList.length;
-  const resultsCountStr =
-    resultsCount > 1 ? `${resultsCount} Ratings` : `${resultsCount} Rating`;
+  const resultsCount = getResultsCount(feedbackList.length);
 
   return (
     <Box display="flex" flexDirection="column" gap="1rem">
@@ -63,7 +52,7 @@ export const FeedbackResults: FC<FeedbackResultsProps> = ({
 
       <Bar data={chartData} options={CHART_OPTIONS} />
 
-      <Typography variant="subtitle1">{resultsCountStr}</Typography>
+      <Typography variant="subtitle1">{resultsCount}</Typography>
 
       <Grid
         component="section"

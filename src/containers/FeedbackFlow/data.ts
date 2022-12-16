@@ -1,6 +1,7 @@
+import { FeedbackList } from "../types/Feedback";
 import { FormErrors, FormValues } from "./types";
 
-export const INITIAL_FEEDBACK_LIST = [];
+export const INITIAL_FEEDBACK_LIST: FeedbackList = [];
 
 export const INITIAL_FORM_VALUES: FormValues = {
   name: "",
