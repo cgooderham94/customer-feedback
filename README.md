@@ -52,16 +52,34 @@ adapts gracefully to different screen sizes and devices.
 
 ---
 
-### TODO
+## Rationale
 
-- [x] Repo scaffolding
-- [x] Feedback form container component
-- [x] Comments state
-  - [x] Push form submission to comments state
-- [x] Validate form fields
-- [x] Multi-step flow -> submissions page
-- [x] Add distribution chart via third-party dep
-- [ ] Refine distribution chart options
-- [x] UI Layout
-- [ ] Styling/UI refinements
-- [ ] General abstractions, re-structuring and nit tidying
+### Data Handling & Formatting
+
+### Performance
+
+### Testing
+
+Integration testing is implemented through the use of Jest and [React Testing Library (RTL)](https://testing-library.com/docs/react-testing-library/intro), allowing this application to be tested in a way that closely reflects how I expect the end-user to use it. RTL also provides a much cleaner and more developer-friendly style of implementing tests minimizing reference to low-level API's and significantly improving the readibility of tests.
+
+### User Interface
+
+The UI for this application is intentionally minimal, particularly with respect to displaying feedback data. Large amounts of data and metrics should be easy to comprehend and interpret.
+
+### User Experience & Accessibility
+
+Appropriate implementation of accessibility best practices are implemented throughout. Application is fully keyboard navigable from form to results and back again. Chart implementation has additional aria-label applied to ensure assistive technologies are not hindered by the `canvas` element.
+
+### Potential Improvements
+
+If I were to iterate on this solution and implement improvements, I would consider the following points:
+
+- Implement a regression test via Cypress.
+
+## TODO
+
+- [ ] Complete Documentation
+- [ ] Add installation/setup steps
+- [ ] Check performance
+- [ ] Nit tidying
+- [ ] Consider general UI
