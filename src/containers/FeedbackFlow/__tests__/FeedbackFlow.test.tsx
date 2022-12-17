@@ -6,6 +6,9 @@ import "../../../components/BarChart/BarChart";
 import "../data";
 
 jest.mock("../../../components/BarChart/BarChart", () => ({
+  Chart: {
+    register: () => null,
+  },
   Bar: () => null,
 }));
 
@@ -84,7 +87,7 @@ describe("FeedbackFlow", () => {
 
     expect(screen.getByText(new RegExp(EMAIL, "i"))).toBeInTheDocument();
     expect(
-      screen.getByRole("img", { name: new RegExp(ratingStr, "i") })
+      screen.getAllByRole("img", { name: new RegExp(ratingStr, "i") })[1]
     ).toBeInTheDocument();
     expect(screen.getByText(new RegExp(COMMENT, "i"))).toBeInTheDocument();
   });
@@ -154,7 +157,26 @@ describe("FeedbackFlow", () => {
     });
   });
 
-  describe("FeedbackResults step", () => {
+  describe("feedback results", () => {
+    it("display ratings distribution chart", () => {
+      renderComponent();
+
+      expectSubmitFeedback({
+        name: NAME,
+        email: EMAIL,
+        rating: RATING,
+        comment: COMMENT,
+      });
+
+      expect(
+        screen.getByRole("graphics-document", {
+          name: /distribution of ratings. 0 - 1 star, 0 - 2 stars, 1 - 3 stars, 1 - 4 stars, 1 - 5 stars/i,
+        })
+      ).toBeInTheDocument();
+
+      expect(screen.getByText(/\(3 ratings\) 4 stars/i)).toBeInTheDocument();
+    });
+
     it("displays list of past feedback", () => {
       renderComponent();
 
@@ -179,7 +201,7 @@ describe("FeedbackFlow", () => {
 
       expect(screen.getByText(new RegExp(EMAIL, "i"))).toBeInTheDocument();
       expect(
-        screen.getByRole("img", { name: new RegExp(ratingStr, "i") })
+        screen.getAllByRole("img", { name: new RegExp(ratingStr, "i") })[1]
       ).toBeInTheDocument();
       expect(screen.getByText(new RegExp(COMMENT, "i"))).toBeInTheDocument();
     });
