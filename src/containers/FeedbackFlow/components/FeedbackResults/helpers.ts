@@ -1,3 +1,4 @@
+import { FeedbackList } from "../../../types/Feedback";
 import { FEEDBACK_RESULTS_CONTENT } from "./constants";
 
 const { chartLabelPrepend, star } = FEEDBACK_RESULTS_CONTENT;
@@ -7,6 +8,16 @@ export const getPluralised = (count: number, baseWord: string) => {
   const plural = count > 1 ? "s" : "";
 
   return [baseStr, plural].join("");
+};
+
+export const getAggregatedRating = (
+  feedbackListSize: number,
+  averageRating: number
+) => {
+  const resultsCount = getPluralised(feedbackListSize, "Rating");
+  const averageRatingStr = getPluralised(averageRating, "Star");
+
+  return ["(", resultsCount, ") ", averageRatingStr].join("");
 };
 
 export const getChartAriaLabel = (

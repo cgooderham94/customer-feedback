@@ -5,7 +5,11 @@ import { CHART_LABELS } from "../../data";
 import type { FeedbackList } from "../../../types/Feedback";
 import { Box } from "@mui/system";
 import { CommentCard } from "../";
-import { getChartAriaLabel, getPluralised } from "./helpers";
+import {
+  getAggregatedRating,
+  getChartAriaLabel,
+  getPluralised,
+} from "./helpers";
 import {
   type ChartData,
   Bar,
@@ -43,8 +47,10 @@ export const FeedbackResults: FC<FeedbackResultsProps> = ({
     ],
   };
 
-  const resultsCount = getPluralised(feedbackList.length, "Rating");
-  const averageRatingStr = getPluralised(averageRating, "Star");
+  const aggregatedRating = getAggregatedRating(
+    feedbackList.length,
+    averageRating
+  );
 
   return (
     <Box display="flex" flexDirection="column" gap="1rem">
@@ -71,11 +77,15 @@ export const FeedbackResults: FC<FeedbackResultsProps> = ({
         <Bar data={chartData} options={CHART_OPTIONS} />
       </Box>
 
-      <Box display="flex" alignItems="center" gap="0.5rem">
+      <Box
+        display="flex"
+        alignItems="center"
+        gap="0.5rem"
+        data-testid="aggregated-rating"
+      >
         <Typography variant="subtitle1" component="p" display="flex">
-          ({resultsCount})
+          {aggregatedRating}
         </Typography>
-        {averageRatingStr}
         <Rating value={averageRating} precision={0.5} readOnly />
       </Box>
 
