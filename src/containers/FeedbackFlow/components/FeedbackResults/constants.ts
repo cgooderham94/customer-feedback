@@ -5,6 +5,14 @@ export const FEEDBACK_RESULTS_CONTENT = {
   commentsHeading: "Latest Comments",
   backBtn: "Go Back",
   chartLabelPrepend: "Distribution of ratings.",
+  star: "Star",
+  starLabels: {
+    one: "1 Star",
+    two: "2 Stars",
+    three: "3 Stars",
+    four: "4 Stars",
+    five: "5 Stars",
+  },
 };
 
 export const CHART_OPTIONS: ChartOptions<"bar"> = {

@@ -1,10 +1,10 @@
-import { TextField } from "@mui/material";
 import React, {
   type Dispatch,
   type FC,
   type SetStateAction,
   type SyntheticEvent,
 } from "react";
+import { TextField } from "@mui/material";
 import { RatingInput } from "../../../../components";
 import { TextArea } from "../../../../components/TextArea/TextArea";
 import type { FieldId, FormErrors, FormValues } from "../../types";
@@ -25,7 +25,7 @@ export const FieldGroup: FC<FieldGroupProps> = ({
   onFieldChange,
   fields,
 }) => {
-  const handleRating = (e: SyntheticEvent, newValue: number | null) =>
+  const handleRating = (_e: SyntheticEvent, newValue: number | null) =>
     setFormValues({ ...values, rating: newValue || 0 });
 
   return (

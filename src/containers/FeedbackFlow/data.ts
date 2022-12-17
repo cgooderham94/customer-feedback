@@ -1,5 +1,8 @@
 import { FeedbackList } from "../types/Feedback";
+import { FEEDBACK_RESULTS_CONTENT } from "./components/FeedbackResults/constants";
 import { FormErrors, FormValues } from "./types";
+
+const { starLabels } = FEEDBACK_RESULTS_CONTENT;
 
 export const INITIAL_FEEDBACK_LIST: FeedbackList = [];
 
@@ -17,13 +20,7 @@ export const INITIAL_FORM_ERRORS: FormErrors = {
   comment: "",
 };
 
-export const CHART_LABELS = [
-  "1 Star",
-  "2 Stars",
-  "3 Stars",
-  "4 Stars",
-  "5 Stars",
-];
+export const CHART_LABELS = Object.values(starLabels);
 
 export const INITIAL_RATINGS_DISTRIBUTION = {
   "1": 0,

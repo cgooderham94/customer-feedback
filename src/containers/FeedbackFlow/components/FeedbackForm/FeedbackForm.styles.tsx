@@ -1,10 +1,5 @@
 import styled from "styled-components";
-import {
-  Button,
-  FormControl,
-  OutlinedInput,
-  styled as styledMui,
-} from "@mui/material";
+import { Button } from "@mui/material";
 
 export const Form = styled.form`
   display: flex;

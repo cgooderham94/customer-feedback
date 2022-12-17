@@ -1,6 +1,6 @@
 import { FEEDBACK_RESULTS_CONTENT } from "./constants";
 
-const { chartLabelPrepend } = FEEDBACK_RESULTS_CONTENT;
+const { chartLabelPrepend, star } = FEEDBACK_RESULTS_CONTENT;
 
 export const getPluralised = (count: number, baseWord: string) => {
   const baseStr = `${count} ${baseWord}`;
@@ -14,7 +14,7 @@ export const getChartAriaLabel = (
 ) => {
   const values = Object.values(ratingsDistribution);
   const ratingValuesStr = values
-    .map((value, index) => `${value} - ${getPluralised(index + 1, "Star")}`)
+    .map((value, index) => `${value} - ${getPluralised(index + 1, star)}`)
     .join(", ");
 
   return [chartLabelPrepend, ratingValuesStr].join(" ");

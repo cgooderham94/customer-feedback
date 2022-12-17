@@ -1,6 +1,5 @@
 import { FC } from "react";
-import { Rating } from "@mui/material";
-import { Card } from "./CommentCard.styles";
+import { Card, Rating } from "./CommentCard.styles";
 
 interface CommentCardProps {
   email: string;
@@ -15,12 +14,7 @@ export const CommentCard: FC<CommentCardProps> = ({
 }) => (
   <Card variant="outlined">
     <div>{email}</div>
-    <Rating
-      value={rating}
-      size="small"
-      readOnly
-      sx={{ marginTop: "0.25rem" }}
-    />
+    <Rating value={rating} size="small" readOnly />
     <div>{comment}</div>
   </Card>
 );

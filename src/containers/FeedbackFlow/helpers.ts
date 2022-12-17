@@ -1,8 +1,15 @@
-import { Feedback, FeedbackList } from "../types/Feedback";
-import { EMAIL_REGEX } from "./components/FeedbackForm/constants";
+import { FeedbackList } from "../types/Feedback";
+import {
+  EMAIL_REGEX,
+  FEEDBACK_FORM_CONTENT,
+} from "./components/FeedbackForm/constants";
 import { ALL_FIELDS, Field } from "./components/FeedbackForm/data";
 import { INITIAL_RATINGS_DISTRIBUTION } from "./data";
 import { FieldId, FormErrors, FormValues } from "./types";
+
+const {
+  validation: { email: emailMessage, required: requiredMessage },
+} = FEEDBACK_FORM_CONTENT;
 
 export const isEmailInvalid = (fieldType: Field["type"], value: string) => {
   return fieldType === "email" && !new RegExp(EMAIL_REGEX).test(value);
@@ -27,10 +34,10 @@ export const validateFields = ({
 
     if (fieldConfig.required && !value) {
       isValid = false;
-      setFieldError(field as FieldId, "This field is required");
+      setFieldError(field as FieldId, requiredMessage);
     } else if (isEmailInvalid(fieldConfig.type, value.toString())) {
       isValid = false;
-      setFieldError(field as FieldId, "A valid email address is required");
+      setFieldError(field as FieldId, emailMessage);
     } else if (formErrors[field as FieldId]) {
       setFieldError(field as FieldId, "");
     }
