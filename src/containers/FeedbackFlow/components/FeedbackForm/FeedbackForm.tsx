@@ -24,7 +24,7 @@ const { heading, submit } = FEEDBACK_FORM_CONTENT;
 
 const { leftCol: leftFieldGroup, rightCol: rightFieldGroup } = FIELD_CONFIG;
 
-export const FeedbackForm: FC<FeedbackFormProps> = ({
+const FeedbackForm: FC<FeedbackFormProps> = ({
   feedbackList,
   setFeedbackList,
   setFeedbackStep,
@@ -80,3 +80,5 @@ export const FeedbackForm: FC<FeedbackFormProps> = ({
     </Box>
   );
 };
+
+export default FeedbackForm;

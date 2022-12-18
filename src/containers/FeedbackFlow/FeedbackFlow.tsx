@@ -3,6 +3,8 @@ import React, {
   useMemo,
   useState,
   useCallback,
+  lazy,
+  Suspense,
 } from "react";
 import { Container } from "@mui/system";
 import {
@@ -10,11 +12,17 @@ import {
   type FeedbackSteps,
   FEEDBACK_STEPS,
 } from "../types/Feedback";
-import { FeedbackForm } from "./components";
-import { FeedbackResults } from "./components/FeedbackResults/FeedbackResults";
 import { Box } from "@mui/material";
 import { getFeedbackMeta } from "./helpers";
 import { INITIAL_FEEDBACK_LIST } from "./data";
+
+const FeedbackForm = lazy(
+  () => import("./components/FeedbackForm/FeedbackForm")
+);
+
+const FeedbackResults = lazy(
+  () => import("./components/FeedbackResults/FeedbackResults")
+);
 
 export const FeedbackFlow = () => {
   const [feedbackList, setFeedbackList] = useState<FeedbackList>(
@@ -58,7 +66,9 @@ export const FeedbackFlow = () => {
 
   return (
     <Box padding="2rem 0">
-      <Container>{formSteps[feedbackStep]}</Container>
+      <Suspense>
+        <Container>{formSteps[feedbackStep]}</Container>
+      </Suspense>
     </Box>
   );
 };

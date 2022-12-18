@@ -27,7 +27,7 @@ const { heading, commentsHeading, backBtn } = FEEDBACK_RESULTS_CONTENT;
 
 Chart.register(LinearScale, CategoryScale, BarElement);
 
-export const FeedbackResults: FC<FeedbackResultsProps> = ({
+const FeedbackResults: FC<FeedbackResultsProps> = ({
   averageRating,
   feedbackList,
   handleBack,
@@ -105,3 +105,5 @@ export const FeedbackResults: FC<FeedbackResultsProps> = ({
     </Box>
   );
 };
+
+export default FeedbackResults;

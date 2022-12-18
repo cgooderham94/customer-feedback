@@ -76,7 +76,7 @@ Comments, form values and errors are stored in local state providing a simple an
 
 ### Performance
 
-State is located in lowest common parent parent components to minimise unnecessary re-renders.
+State is located in lowest common parent parent components to minimise unnecessary re-renders. Step components are lazy loaded using React's `lazy` API to split up the application bundle into asynchronously loaded chunks.
 
 ### Testing
 
@@ -106,11 +106,3 @@ If I were to iterate on this solution and implement improvements, I would consid
   - To offload complexity and technical overhead of managing multiple validations per-field manually. More scalable solution for complex validations.
 - UI design
   - While simplicity is often a key component to an effective user experience, the general UI design of this application could be enhanced with the support of a UI designer.
-
-## TODO
-
-- [ ] Complete Documentation
-- [ ] Add installation/setup steps
-- [ ] Check performance
-- [ ] Nit tidying
-- [ ] Consider general UI
