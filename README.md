@@ -88,7 +88,7 @@ The UI for this application is intentionally minimal, particularly concerning di
 
 ### User Experience & Accessibility
 
-The application gracefully adapts across all device sizes. Form elements are appropriately labelled to assist completion, and validation is applied to guide users through the successful completion of the form.
+The application gracefully adapts across all device sizes. Form elements are appropriately labelled to assist completion, and validation is applied (on submit) to guide users through the successful completion of the form.
 
 Appropriate implementation of accessibility best practices is implemented throughout. The application is fully keyboard navigable from form to results and back again. Chart implementation has an additional aria-label applied to ensure the `canvas` element does not hinder assistive technologies.
 

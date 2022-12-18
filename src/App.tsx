@@ -1,5 +1,4 @@
-import React from 'react';
-import { FeedbackFlow } from './containers/FeedbackFlow';
+import { FeedbackFlow } from "./containers/FeedbackFlow";
 
 function App() {
   return (

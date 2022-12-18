@@ -1,4 +1,4 @@
-import React, { type FC } from "react";
+import { type FC } from "react";
 import { ListItem, ListItemText } from "@mui/material";
 import { Rating } from "./CommentCard.styles";
 
