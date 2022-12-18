@@ -70,7 +70,8 @@ const getAverageRating = (feedbackList: FeedbackList) => {
 export const getFeedbackMeta = (feedbackList: FeedbackList) => {
   return {
     dateSortedList: feedbackList.sort(
-      (prev, current) => current.date.valueOf() - prev.date.valueOf()
+      (prev, current) =>
+        new Date(current.dateUtc).valueOf() - new Date(prev.dateUtc).valueOf()
     ),
     averageRating: getAverageRating(feedbackList),
     ratingsDistribution: getRatingsDistribution(feedbackList),

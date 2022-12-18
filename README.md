@@ -72,9 +72,11 @@ To test the application:
 
 ### Data Handling & Formatting
 
-Comments, form values and errors are stored in local state providing a simple and effective means of accessing and manipulating data for this application. Whilst comments would be added to the `FeedbackList` array in chronological order, an additional date property is added to each feedback item to ensure comments can maintain chronological order if they were to be fetched from an external source.
+Comments, form values and errors are stored in local state providing a simple and effective means of accessing and manipulating data for this application. Whilst comments would be added to the `FeedbackList` array in chronological order, an additional date property is added to each feedback item to ensure comments can maintain chronological order if new entries were to be merged with entries from an external source.
 
 ### Performance
+
+State is located in lowest common parent parent components to minimise unnecessary re-renders.
 
 ### Testing
 
@@ -102,8 +104,6 @@ If I were to iterate on this solution and implement improvements, I would consid
   - This could improve the UX of the application to allow users to discover more relevant comments relating to their experience.
 - Implement validation library
   - To offload complexity and technical overhead of managing multiple validations per-field manually. More scalable solution for complex validations.
-- Consider abstracting state into context.
-  - Form values are passed down two levels. This is the maximum no. of levels I'm prepared to pass props. Further abstraction/refactoring _could_ require a context to eliminate prop drilling.
 - UI design
   - While simplicity is often a key component to an effective user experience, the general UI design of this application could be enhanced with the support of a UI designer.
 

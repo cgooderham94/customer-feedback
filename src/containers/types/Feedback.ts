@@ -3,7 +3,7 @@ export interface Feedback {
   email: string;
   rating: number;
   comment: string;
-  date: Date;
+  dateUtc: string;
 }
 
 export type FeedbackList = Feedback[];

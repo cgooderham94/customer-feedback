@@ -2,7 +2,6 @@ import React, {
   type Dispatch,
   type SetStateAction,
   type SyntheticEvent,
-  useCallback,
   useState,
 } from "react";
 import {
@@ -53,22 +52,19 @@ export const useFeedbackForm = ({
 
     if (!isValid) return;
 
-    const date = new Date();
+    const date = new Date().toUTCString();
 
-    setFeedbackList([...feedbackList, { name, email, rating, comment, date }]);
+    setFeedbackList([
+      ...feedbackList,
+      { name, email, rating, comment, dateUtc: date },
+    ]);
     setFeedbackStep(FEEDBACK_STEPS.RESULTS);
     resetFields();
   };
 
-  const handleBack = useCallback(
-    () => setFeedbackStep(FEEDBACK_STEPS.FORM),
-    [setFeedbackStep]
-  );
-
   return {
     formErrors,
     formValues,
-    handleBack,
     handleSubmit,
     setFormValues,
   };

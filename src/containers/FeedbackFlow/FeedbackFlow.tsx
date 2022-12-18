@@ -1,4 +1,9 @@
-import React, { type ReactElement, useMemo, useState } from "react";
+import React, {
+  type ReactElement,
+  useMemo,
+  useState,
+  useCallback,
+} from "react";
 import { Container } from "@mui/system";
 import {
   type FeedbackList,
@@ -8,7 +13,6 @@ import {
 import { FeedbackForm } from "./components";
 import { FeedbackResults } from "./components/FeedbackResults/FeedbackResults";
 import { Box } from "@mui/material";
-import { useFeedbackForm } from "./hooks/useFeedbackForm";
 import { getFeedbackMeta } from "./helpers";
 import { INITIAL_FEEDBACK_LIST } from "./data";
 
@@ -20,22 +24,23 @@ export const FeedbackFlow = () => {
     FEEDBACK_STEPS.FORM
   );
 
-  const { formErrors, formValues, handleBack, handleSubmit, setFormValues } =
-    useFeedbackForm({ feedbackList, setFeedbackList, setFeedbackStep });
-
   const { averageRating, dateSortedList, ratingsDistribution } = useMemo(
     () => getFeedbackMeta(feedbackList),
     [feedbackList]
+  );
+
+  const handleBack = useCallback(
+    () => setFeedbackStep(FEEDBACK_STEPS.FORM),
+    [setFeedbackStep]
   );
 
   const formSteps: Record<FeedbackSteps, ReactElement> = {
     FORM: (
       <FeedbackForm
         {...{
-          formValues,
-          setFormValues,
-          formErrors,
-          handleSubmit,
+          setFeedbackList,
+          feedbackList,
+          setFeedbackStep,
         }}
       />
     ),

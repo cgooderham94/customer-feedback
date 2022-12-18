@@ -9,14 +9,15 @@ import { Box } from "@mui/system";
 import { FEEDBACK_FORM_CONTENT } from "./constants";
 import { FIELD_CONFIG } from "./data";
 import { Form, SubmitButton } from "./FeedbackForm.styles";
-import type { FieldId, FormErrors, FormValues } from "../../types";
+import type { FieldId } from "../../types";
 import { FieldGroup } from "../FieldGroup/FieldGroup";
+import { FeedbackList, FeedbackSteps } from "../../../types/Feedback";
+import { useFeedbackForm } from "../../hooks/useFeedbackForm";
 
 interface FeedbackFormProps {
-  formErrors: FormErrors;
-  formValues: FormValues;
-  setFormValues: Dispatch<SetStateAction<FormValues>>;
-  handleSubmit: (e: SyntheticEvent) => void;
+  feedbackList: FeedbackList;
+  setFeedbackList: Dispatch<SetStateAction<FeedbackList>>;
+  setFeedbackStep: Dispatch<SetStateAction<FeedbackSteps>>;
 }
 
 const { heading, submit } = FEEDBACK_FORM_CONTENT;
@@ -24,10 +25,9 @@ const { heading, submit } = FEEDBACK_FORM_CONTENT;
 const { leftCol: leftFieldGroup, rightCol: rightFieldGroup } = FIELD_CONFIG;
 
 export const FeedbackForm: FC<FeedbackFormProps> = ({
-  formErrors,
-  formValues,
-  setFormValues,
-  handleSubmit,
+  feedbackList,
+  setFeedbackList,
+  setFeedbackStep,
 }) => {
   const handleFieldChange = (fieldId: FieldId) => (e: SyntheticEvent) => {
     const {
@@ -39,6 +39,9 @@ export const FeedbackForm: FC<FeedbackFormProps> = ({
 
     setFormValues(newValues);
   };
+
+  const { formErrors, formValues, handleSubmit, setFormValues } =
+    useFeedbackForm({ feedbackList, setFeedbackList, setFeedbackStep });
 
   return (
     <Box display="flex" flexDirection="column" gap="1rem">
