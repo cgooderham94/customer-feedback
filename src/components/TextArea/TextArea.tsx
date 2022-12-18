@@ -11,6 +11,7 @@ interface TextAreaProps {
   label: ReactNode;
   value: InputProps["value"];
   error: string;
+  required?: InputProps["required"];
   onChange: InputProps["onChange"];
 }
 
@@ -20,9 +21,12 @@ export const TextArea: FC<TextAreaProps> = ({
   value,
   error,
   onChange,
+  required,
 }) => (
   <FormControlExpanded variant="outlined" key={id}>
-    <InputLabel htmlFor={id}>{label}</InputLabel>
+    <InputLabel htmlFor={id} required={required}>
+      {label}
+    </InputLabel>
     <OutlinedInputExpanded
       {...{
         id,
@@ -34,6 +38,7 @@ export const TextArea: FC<TextAreaProps> = ({
         fullWidth: true,
         multiline: true,
         minRows: 1,
+        required,
         inputProps: {
           style: outlinedTextareaStyles,
         },

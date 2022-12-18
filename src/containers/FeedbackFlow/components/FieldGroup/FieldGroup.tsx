@@ -8,7 +8,7 @@ import { TextField } from "@mui/material";
 import { RatingInput } from "../../../../components";
 import { TextArea } from "../../../../components/TextArea/TextArea";
 import type { FieldId, FormErrors, FormValues } from "../../types";
-import type { Field } from "../FeedbackForm/data";
+import { ALL_FIELDS, Field } from "../FeedbackForm/data";
 
 interface FieldGroupProps {
   values: FormValues;
@@ -31,7 +31,13 @@ export const FieldGroup: FC<FieldGroupProps> = ({
   return (
     <>
       {fields.map(({ label, id, type }) => {
-        const baseProps = { type, label, id, key: id };
+        const baseProps = {
+          type,
+          label,
+          id,
+          key: id,
+          required: ALL_FIELDS[id].required,
+        };
 
         switch (type) {
           case "textarea":
