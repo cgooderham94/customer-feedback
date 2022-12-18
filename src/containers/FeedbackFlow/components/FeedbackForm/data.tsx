@@ -1,5 +1,5 @@
-import { OutlinedTextFieldProps } from "@mui/material";
-import { FieldId } from "../../types";
+import type { OutlinedTextFieldProps } from "@mui/material";
+import type { FieldId } from "../../types";
 
 export interface Field extends Omit<OutlinedTextFieldProps, "variant"> {
   id: FieldId;

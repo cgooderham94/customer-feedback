@@ -1,4 +1,4 @@
-import { FC } from "react";
+import React, { type FC } from "react";
 import { Card, Rating } from "./CommentCard.styles";
 
 interface CommentCardProps {

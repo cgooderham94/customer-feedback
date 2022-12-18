@@ -1,11 +1,15 @@
-import React from "react";
+import React, {
+  type Dispatch,
+  type FC,
+  type SetStateAction,
+  type SyntheticEvent,
+} from "react";
 import { Grid, Typography } from "@mui/material";
 import { Box } from "@mui/system";
-import { Dispatch, FC, SetStateAction, SyntheticEvent } from "react";
 import { FEEDBACK_FORM_CONTENT } from "./constants";
 import { FIELD_CONFIG } from "./data";
 import { Form, SubmitButton } from "./FeedbackForm.styles";
-import { FieldId, FormErrors, FormValues } from "../../types";
+import type { FieldId, FormErrors, FormValues } from "../../types";
 import { FieldGroup } from "../FieldGroup/FieldGroup";
 
 interface FeedbackFormProps {

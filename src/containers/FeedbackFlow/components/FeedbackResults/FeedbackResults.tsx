@@ -5,11 +5,7 @@ import { CHART_LABELS } from "../../data";
 import type { FeedbackList } from "../../../types/Feedback";
 import { Box } from "@mui/system";
 import { CommentCard } from "../";
-import {
-  getAggregatedRating,
-  getChartAriaLabel,
-  getPluralised,
-} from "./helpers";
+import { getAggregatedRating, getChartAriaLabel } from "./helpers";
 import {
   type ChartData,
   Bar,

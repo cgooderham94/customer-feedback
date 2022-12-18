@@ -1,18 +1,18 @@
 import React, {
-  Dispatch,
-  SetStateAction,
-  SyntheticEvent,
+  type Dispatch,
+  type SetStateAction,
+  type SyntheticEvent,
   useCallback,
   useState,
 } from "react";
 import {
-  FeedbackList,
-  FeedbackSteps,
+  type FeedbackList,
+  type FeedbackSteps,
   FEEDBACK_STEPS,
 } from "../../types/Feedback";
 import { INITIAL_FORM_ERRORS, INITIAL_FORM_VALUES } from "../data";
 import { validateFields } from "../helpers";
-import { FieldId, FormErrors, FormValues } from "../types";
+import type { FieldId, FormErrors, FormValues } from "../types";
 
 interface UseFeedbackFormParams {
   feedbackList: FeedbackList;

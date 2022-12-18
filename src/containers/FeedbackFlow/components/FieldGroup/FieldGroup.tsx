@@ -8,7 +8,7 @@ import { TextField } from "@mui/material";
 import { RatingInput } from "../../../../components";
 import { TextArea } from "../../../../components/TextArea/TextArea";
 import type { FieldId, FormErrors, FormValues } from "../../types";
-import { ALL_FIELDS, Field } from "../FeedbackForm/data";
+import { ALL_FIELDS, type Field } from "../FeedbackForm/data";
 
 interface FieldGroupProps {
   values: FormValues;

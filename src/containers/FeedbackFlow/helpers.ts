@@ -3,9 +3,9 @@ import {
   EMAIL_REGEX,
   FEEDBACK_FORM_CONTENT,
 } from "./components/FeedbackForm/constants";
-import { ALL_FIELDS, Field } from "./components/FeedbackForm/data";
+import { ALL_FIELDS, type Field } from "./components/FeedbackForm/data";
 import { INITIAL_RATINGS_DISTRIBUTION } from "./data";
-import { FieldId, FormErrors, FormValues } from "./types";
+import type { FieldId, FormErrors, FormValues } from "./types";
 
 const {
   validation: { email: emailMessage, required: requiredMessage },

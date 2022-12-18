@@ -1,4 +1,4 @@
-import { ChartOptions } from "chart.js";
+import type { ChartOptions } from "chart.js";
 
 export const FEEDBACK_RESULTS_CONTENT = {
   heading: "Feedback Results",

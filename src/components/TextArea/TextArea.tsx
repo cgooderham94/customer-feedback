@@ -1,5 +1,5 @@
-import { FormHelperText, InputLabel, InputProps } from "@mui/material";
-import { FC, ReactNode } from "react";
+import { FormHelperText, InputLabel, type InputProps } from "@mui/material";
+import React, { type FC, type ReactNode } from "react";
 import {
   FormControlExpanded,
   OutlinedInputExpanded,

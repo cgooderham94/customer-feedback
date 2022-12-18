@@ -1,6 +1,6 @@
-import { FeedbackList } from "../types/Feedback";
+import type { FeedbackList } from "../types/Feedback";
 import { FEEDBACK_RESULTS_CONTENT } from "./components/FeedbackResults/constants";
-import { FormErrors, FormValues } from "./types";
+import type { FormErrors, FormValues } from "./types";
 
 const { starLabels } = FEEDBACK_RESULTS_CONTENT;
 

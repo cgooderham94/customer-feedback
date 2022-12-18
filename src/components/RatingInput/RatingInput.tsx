@@ -3,7 +3,7 @@ import {
   Box,
   Typography,
   Rating,
-  RatingProps,
+  type RatingProps,
   FormHelperText,
   FormControl,
 } from "@mui/material";

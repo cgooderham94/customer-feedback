@@ -1,4 +1,3 @@
-import { FeedbackList } from "../../../types/Feedback";
 import { FEEDBACK_RESULTS_CONTENT } from "./constants";
 
 const { chartLabelPrepend, star } = FEEDBACK_RESULTS_CONTENT;

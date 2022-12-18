@@ -1,6 +1,10 @@
-import React, { ReactElement, useMemo, useState } from "react";
+import React, { type ReactElement, useMemo, useState } from "react";
 import { Container } from "@mui/system";
-import { FeedbackList, FeedbackSteps, FEEDBACK_STEPS } from "../types/Feedback";
+import {
+  type FeedbackList,
+  type FeedbackSteps,
+  FEEDBACK_STEPS,
+} from "../types/Feedback";
 import { FeedbackForm } from "./components";
 import { FeedbackResults } from "./components/FeedbackResults/FeedbackResults";
 import { Box } from "@mui/material";
