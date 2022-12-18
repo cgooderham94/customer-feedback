@@ -1,5 +1,6 @@
-import React, { type FC, memo } from "react";
-import { Card, Rating } from "./CommentCard.styles";
+import React, { type FC } from "react";
+import { ListItem, ListItemText } from "@mui/material";
+import { Rating } from "./CommentCard.styles";
 
 interface CommentCardProps {
   email: string;
@@ -12,9 +13,11 @@ export const CommentCard: FC<CommentCardProps> = ({
   rating,
   comment,
 }) => (
-  <Card variant="outlined">
-    <div>{email}</div>
-    <Rating value={rating} size="small" readOnly />
-    <div>{comment}</div>
-  </Card>
+  <ListItem>
+    <ListItemText>
+      <div>{email}</div>
+      <Rating value={rating} size="small" readOnly />
+      <div>{comment}</div>
+    </ListItemText>
+  </ListItem>
 );

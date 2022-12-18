@@ -1,5 +1,5 @@
-import React, { type FC } from "react";
-import { Button, Grid, Rating, Typography } from "@mui/material";
+import React, { Fragment, type FC } from "react";
+import { Button, Divider, Grid, List, Rating, Typography } from "@mui/material";
 import { CHART_OPTIONS, FEEDBACK_RESULTS_CONTENT } from "./constants";
 import { CHART_LABELS } from "../../data";
 import type { FeedbackList } from "../../../types/Feedback";
@@ -15,6 +15,7 @@ import {
   LinearScale,
 } from "../../../../components/BarChart/BarChart";
 import { blue } from "@mui/material/colors";
+import { CanvasContainer } from "./FeedbackResults.styles";
 
 interface FeedbackResultsProps {
   averageRating: number;
@@ -39,6 +40,8 @@ const FeedbackResults: FC<FeedbackResultsProps> = ({
       {
         data: Object.values(ratingsDistribution),
         backgroundColor: blue["500"],
+        barPercentage: 0.6,
+        borderRadius: 4,
       },
     ],
   };
@@ -49,7 +52,7 @@ const FeedbackResults: FC<FeedbackResultsProps> = ({
   );
 
   return (
-    <Box display="flex" flexDirection="column" gap="1rem">
+    <Box display="flex" flexDirection="column" gap="1.5rem">
       <Box
         display="flex"
         alignItems="center"
@@ -66,12 +69,12 @@ const FeedbackResults: FC<FeedbackResultsProps> = ({
         </Button>
       </Box>
 
-      <Box
+      <CanvasContainer
         role="graphics-document"
         aria-label={getChartAriaLabel(ratingsDistribution)}
       >
         <Bar data={chartData} options={CHART_OPTIONS} />
-      </Box>
+      </CanvasContainer>
 
       <Box
         display="flex"
@@ -89,18 +92,21 @@ const FeedbackResults: FC<FeedbackResultsProps> = ({
         component="section"
         container
         flexDirection="column"
-        gap="1rem"
+        gap="0.5rem"
         aria-labelledby="comments-heading"
       >
         <Typography variant="h5" component="h2" id="comments-heading">
           {commentsHeading}
         </Typography>
 
-        <Grid container gap="1rem" flexDirection="column">
+        <List disablePadding>
           {feedbackList.map(({ email, rating, comment }, index) => (
-            <CommentCard {...{ key: index, email, rating, comment }} />
+            <Fragment key={index}>
+              <CommentCard {...{ key: index, email, rating, comment }} />
+              <Divider />
+            </Fragment>
           ))}
-        </Grid>
+        </List>
       </Grid>
     </Box>
   );

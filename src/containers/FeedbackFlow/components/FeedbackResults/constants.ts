@@ -17,6 +17,7 @@ export const FEEDBACK_RESULTS_CONTENT = {
 
 export const CHART_OPTIONS: ChartOptions<"bar"> = {
   responsive: true,
+  maintainAspectRatio: false,
   scales: {
     x: {
       title: {
