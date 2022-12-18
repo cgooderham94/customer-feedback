@@ -56,6 +56,8 @@ adapts gracefully to different screen sizes and devices.
 
 ### Data Handling & Formatting
 
+Comments, form values and errors are stored in local state providing a simple and effective means of accessing and manipulating data for this application. Whilst comments would be added to the `FeedbackList` array in chronological order, an additional date property is added to each feedback item to ensure comments can maintain chronological order if they were to be fetched from an external source.
+
 ### Performance
 
 ### Testing
@@ -68,13 +70,26 @@ The UI for this application is intentionally minimal, particularly with respect 
 
 ### User Experience & Accessibility
 
+The application gracefully adapts across all device sizes. Form elements are appropriately labelled to assist completion and validation is applied to guide users through successful completion of the form.
+
 Appropriate implementation of accessibility best practices are implemented throughout. Application is fully keyboard navigable from form to results and back again. Chart implementation has additional aria-label applied to ensure assistive technologies are not hindered by the `canvas` element.
+
+Additional aggregated ratings information is displayed to provider user on overall average rating of product, providiing more contextual information to improve their understanding of how the 'product/service' is viewed more broadly.
 
 ### Potential Improvements
 
 If I were to iterate on this solution and implement improvements, I would consider the following points:
 
 - Implement a regression test via Cypress.
+  - This would provide the most confidence that this feature works from start to finish and no regressions are introduced across subsequent development cycles.
+- Add sort ordering on comments by date (most recent/oldest) and rating (highest/lowest)
+  - This could improve the UX of the application to allow users to discover more relevant comments relating to their experience.
+- Implement validation library
+  - To offload complexity and technical overhead of managing multiple validations per-field manually. More scalable solution for complex validations.
+- Consider abstracting state into context.
+  - Form values are passed down two levels. This is the maximum no. of levels I'm prepared to pass props. Further abstraction/refactoring _could_ require a context to eliminate prop drilling.
+- UI design
+  - While simplicity is often a key component to an effective user experience, the general UI design of this application could be enhanced with the support of a UI designer.
 
 ## TODO
 
