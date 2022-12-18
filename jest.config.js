@@ -7,4 +7,5 @@ module.exports = {
   transform: {
     "\\.(ts|js)x?$": ["ts-jest", { isolatedModules: true }],
   },
+  maxWorkers: 1,
 };

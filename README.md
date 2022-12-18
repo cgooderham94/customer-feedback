@@ -52,6 +52,22 @@ adapts gracefully to different screen sizes and devices.
 
 ---
 
+## Getting Started
+
+Install dependencies via `yarn install`.
+
+To run this application in dev mode:
+
+1. Run the application via `yarn start`.
+
+To build the production bundle:
+
+1. Build the application via `yarn build`.
+
+To test the application:
+
+1. Run integration tests via `yarn test`.
+
 ## Rationale
 
 ### Data Handling & Formatting
