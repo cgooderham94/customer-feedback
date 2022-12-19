@@ -3,6 +3,7 @@ import type { FieldId } from "../../types";
 
 export interface Field extends Omit<OutlinedTextFieldProps, "variant"> {
   id: FieldId;
+  maxLength?: number;
 }
 
 export const ALL_FIELDS: Record<FieldId, Field> = {
@@ -29,6 +30,7 @@ export const ALL_FIELDS: Record<FieldId, Field> = {
     id: "comment",
     type: "textarea",
     required: true,
+    maxLength: 200,
   },
 };
 

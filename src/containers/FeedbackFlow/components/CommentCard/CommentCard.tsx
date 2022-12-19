@@ -1,6 +1,7 @@
 import { type FC } from "react";
-import { ListItem, ListItemText } from "@mui/material";
+import { ListItem, ListItemText, Typography } from "@mui/material";
 import { Rating } from "./CommentCard.styles";
+import { Box } from "@mui/system";
 
 interface CommentCardProps {
   email: string;
@@ -14,10 +15,12 @@ export const CommentCard: FC<CommentCardProps> = ({
   comment,
 }) => (
   <ListItem>
-    <ListItemText>
-      <div>{email}</div>
-      <Rating value={rating} size="small" readOnly />
-      <div>{comment}</div>
-    </ListItemText>
+    <Box display="flex" flexDirection="column" gap="0.5rem">
+      <Box display="flex" flexDirection="column" gap="0.25rem">
+        <div>{email}</div>
+        <Rating value={rating} size="small" readOnly />
+      </Box>
+      <Typography variant="body1">{comment}</Typography>
+    </Box>
   </ListItem>
 );
