@@ -46,11 +46,11 @@ describe("FeedbackFlow", () => {
     jest.clearAllMocks();
   });
 
-  it("displays feedback form step as default", () => {
+  it("displays feedback form step as default", async () => {
     renderComponent();
 
     expect(
-      screen.getByRole("heading", { name: /feedback form/i })
+      await screen.findByRole("heading", { name: /feedback form/i })
     ).toBeInTheDocument();
 
     const form = screen.getByRole("form", { name: /feedback form/i });
@@ -71,10 +71,10 @@ describe("FeedbackFlow", () => {
     ).toBeInTheDocument();
   });
 
-  it("new comment can be seen on FeedbackResults step when form is successfully submitted", () => {
+  it("new comment can be seen on FeedbackResults step when form is successfully submitted", async () => {
     renderComponent();
 
-    expectSubmitFeedback({
+    await expectSubmitFeedback({
       name: NAME,
       email: EMAIL,
       rating: RATING,
@@ -82,7 +82,7 @@ describe("FeedbackFlow", () => {
     });
 
     expect(
-      screen.getByRole("heading", { name: /feedback results/i })
+      await screen.findByRole("heading", { name: /feedback results/i })
     ).toBeInTheDocument();
 
     expect(screen.getByText(new RegExp(EMAIL, "i"))).toBeInTheDocument();
@@ -93,10 +93,10 @@ describe("FeedbackFlow", () => {
   });
 
   describe("form validation", () => {
-    it("shows required field errors when form fields are not filled in", () => {
+    it("shows required field errors when form fields are not filled in", async () => {
       renderComponent();
 
-      const form = screen.getByRole("form", { name: /feedback form/i });
+      const form = await screen.findByRole("form", { name: /feedback form/i });
       const withinForm = within(form);
       const requiredRegex = /this field is required/i;
 
@@ -137,10 +137,10 @@ describe("FeedbackFlow", () => {
       ).not.toBeInTheDocument();
     });
 
-    it("shows email error when email value is invalid", () => {
+    it("shows email error when email value is invalid", async () => {
       renderComponent();
 
-      const form = screen.getByRole("form", { name: /feedback form/i });
+      const form = await screen.findByRole("form", { name: /feedback form/i });
       const withinForm = within(form);
 
       expect(form).toBeInTheDocument();
@@ -158,10 +158,10 @@ describe("FeedbackFlow", () => {
   });
 
   describe("feedback results", () => {
-    it("display ratings distribution chart", () => {
+    it("display ratings distribution chart", async () => {
       renderComponent();
 
-      expectSubmitFeedback({
+      await expectSubmitFeedback({
         name: NAME,
         email: EMAIL,
         rating: RATING,
@@ -177,10 +177,10 @@ describe("FeedbackFlow", () => {
       expect(screen.getByText(/\(3 ratings\) 4 stars/i)).toBeInTheDocument();
     });
 
-    it("displays list of past feedback", () => {
+    it("displays list of past feedback", async () => {
       renderComponent();
 
-      expectSubmitFeedback({
+      await expectSubmitFeedback({
         name: NAME,
         email: EMAIL,
         rating: RATING,
@@ -206,10 +206,10 @@ describe("FeedbackFlow", () => {
       expect(screen.getByText(new RegExp(COMMENT, "i"))).toBeInTheDocument();
     });
 
-    it("allows user to go back to FeedbackForm with reset values", () => {
+    it("allows user to go back to FeedbackForm with reset values", async () => {
       renderComponent();
 
-      expectSubmitFeedback({
+      await expectSubmitFeedback({
         name: NAME,
         email: EMAIL,
         rating: RATING,

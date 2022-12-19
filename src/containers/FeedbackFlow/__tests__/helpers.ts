@@ -1,4 +1,4 @@
-import { screen, within, fireEvent } from "@testing-library/react";
+import { screen, within, fireEvent, waitFor } from "@testing-library/react";
 import userEvent from "@testing-library/user-event";
 
 const expectRatingField = () => {
@@ -34,7 +34,7 @@ export const expectSubmitFeedback = async ({
   comment,
 }: ExpectSubmitFeedbackOptions) => {
   expect(
-    screen.getByRole("heading", { name: /feedback form/i })
+    await screen.findByRole("heading", { name: /feedback form/i })
   ).toBeInTheDocument();
 
   const form = screen.getByRole("form", { name: /feedback form/i });
@@ -73,5 +73,5 @@ export const expectSubmitFeedback = async ({
   expect(submitBtn).toBeInTheDocument();
   userEvent.click(submitBtn);
 
-  expect(form).not.toBeInTheDocument();
+  await waitFor(() => expect(form).not.toBeInTheDocument());
 };
