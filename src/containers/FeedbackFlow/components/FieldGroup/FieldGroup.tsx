@@ -30,13 +30,13 @@ export const FieldGroup: FC<FieldGroupProps> = ({
 
   return (
     <>
-      {fields.map(({ label, id, type }) => {
+      {fields.map(({ label, id, type, maxLength, required, placeholder }) => {
         const baseProps = {
           type,
           label,
           id,
           key: id,
-          required: ALL_FIELDS[id].required,
+          required,
         };
 
         switch (type) {
@@ -45,9 +45,11 @@ export const FieldGroup: FC<FieldGroupProps> = ({
               <TextArea
                 {...{
                   ...baseProps,
+                  placeholder,
                   value: values[id],
                   error: errors[id],
                   onChange: onFieldChange(id),
+                  maxLength,
                 }}
               />
             );
@@ -68,11 +70,15 @@ export const FieldGroup: FC<FieldGroupProps> = ({
                 {...{
                   ...baseProps,
                   variant: "outlined",
+                  placeholder,
                   value: values[id],
                   error: !!errors[id],
                   helperText: errors[id],
                   onChange: onFieldChange(id),
                   fullWidth: true,
+                  inputProps: {
+                    maxLength,
+                  },
                 }}
               />
             );

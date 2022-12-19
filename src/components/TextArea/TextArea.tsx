@@ -9,19 +9,23 @@ import {
 interface TextAreaProps {
   id: string;
   label: ReactNode;
+  placeholder?: InputProps["placeholder"];
   value: InputProps["value"];
   error: string;
   required?: InputProps["required"];
+  maxLength?: number;
   onChange: InputProps["onChange"];
 }
 
 export const TextArea: FC<TextAreaProps> = ({
   id,
   label,
+  placeholder,
   value,
   error,
   onChange,
   required,
+  maxLength,
 }) => (
   <FormControlExpanded variant="outlined" key={id}>
     <InputLabel htmlFor={id} required={required}>
@@ -33,6 +37,7 @@ export const TextArea: FC<TextAreaProps> = ({
         label,
         type: "textarea",
         value,
+        placeholder,
         error: !!error,
         onChange: onChange,
         fullWidth: true,
@@ -41,6 +46,7 @@ export const TextArea: FC<TextAreaProps> = ({
         required,
         inputProps: {
           style: outlinedTextareaStyles,
+          maxLength,
         },
       }}
     />

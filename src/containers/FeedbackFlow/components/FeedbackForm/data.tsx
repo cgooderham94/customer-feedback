@@ -27,10 +27,11 @@ export const ALL_FIELDS: Record<FieldId, Field> = {
   },
   comment: {
     label: "Comment",
+    placeholder: "Max 400 characters",
     id: "comment",
     type: "textarea",
     required: true,
-    maxLength: 200,
+    maxLength: 400,
   },
 };
 
