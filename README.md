@@ -1,4 +1,4 @@
-# Checkout.com Front End Challenge
+# Front End Challenge
 
 **Collecting Customer Feedback**
 
@@ -26,26 +26,27 @@ Kindly create a public repository on GitHub and provide your recruitment manager
 
 The only constraint is that your solution must use React. Otherwise you are free to make use of
 any technology (toolchains, component libraries, etc.) you are comfortable with.
-What we value at Checkout.com
 
-### Documentation
+### What we value
+
+#### Documentation
 
 The right amount of documentation is the one that explains what a project does, how to operate
 and why certain choices were made. Also, what’s left to improve and why.
 
-### Code Architecture
+#### Code Architecture
 
 Code should be easy to read and change. Consider folder structure, component breakdown,
 general separation of concerns, ease of testing and keeping things simple for the reader.
 
-### Tests
+#### Tests
 
 Software Engineers at Checkout.com are responsible for building, testing, deploying and
 operating our software. For this exercise, we’re not looking for full test coverage, but we are
 looking for a good demonstration of how you test. You should ensure there are enough tests
 included to demonstrate your knowledge and ensure the application works as expected.
 
-### User Experience
+#### User Experience
 
 We’re looking for a functional user interface, enhanced by thoughtful user experience that
 adapts gracefully to different screen sizes and devices.
@@ -104,5 +105,7 @@ If I were to iterate on this solution and implement improvements, I would consid
   - This could improve the UX of the application to allow users to discover more relevant comments relating to their experience.
 - Implement validation library i.e. `react-hook-form`
   - To offload the complexity and technical overhead of manually managing multiple validations per field. More scalable solution for complex validations and improved UX (onBlur validation) to provide earlier feedback on errors.
+- Comments
+  - Wireframes denote adding users email to comments. Typically, such contact information wouldn't be added to a public review. I would raise this approach with a product manager and/or designer during the design conception/review stage.
 - UI design
   - While simplicity is often a key component to an effective user experience, the general UI design of this application could be enhanced with the support of a UI designer.
